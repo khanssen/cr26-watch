@@ -1,0 +1,9 @@
+# Never publish
+private/
+*.nessus
+*.xlsx
+*-workpapers-*.json
+client-*
+# noise
+__pycache__/
+.DS_Store

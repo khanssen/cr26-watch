@@ -1,0 +1,25 @@
+name: Watch marketplace-fedramp-gov-data (MKT-IAS-WEB schema)
+on:
+  schedule:
+    - cron: "47 11 * * 1"     # weekly, Monday
+  workflow_dispatch:
+permissions: { contents: write }
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pull marketplace data tarball
+        run: |
+          mkdir -p data/marketplace
+          curl -sL https://codeload.github.com/FedRAMP/marketplace-fedramp-gov-data/tar.gz/main -o /tmp/mkt.tgz
+          mkdir -p /tmp/mkt && tar xzf /tmp/mkt.tgz -C /tmp/mkt --strip-components=1
+          # keep only JSON/CSV data, stamped by date; adjust the path once the repo layout is confirmed
+          find /tmp/mkt -type f \( -name '*.json' -o -name '*.csv' \) | head -50 > /tmp/list.txt
+          d=$(date -u +%F); mkdir -p "data/marketplace/$d"
+          while read f; do cp "$f" "data/marketplace/$d/"; done < /tmp/list.txt
+      - name: Commit if changed
+        run: |
+          git config user.name "mkt-watch"; git config user.email "mkt-watch@users.noreply.github.com"
+          git add data/marketplace
+          git diff --cached --quiet || (git commit -m "marketplace snapshot $(date -u +%F)" && git push)

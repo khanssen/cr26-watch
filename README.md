@@ -37,3 +37,7 @@ python scripts/diff_versions.py data/cr26/fedramp-consolidated-rules.OLD.json da
 ## License
 
 Apache-2.0 for code, CC-BY-4.0 for `docs/` and `reports/`; CR26 data is public domain. See `LICENSE` and `docs/LICENSING.md`.
+
+See [docs/USAGE.md](docs/USAGE.md) for running the scripts, reading a change issue, and the publication boundary.
+
+See [docs/USAGE.md](docs/USAGE.md) for running the scripts, reading a change issue, and the publication boundary.

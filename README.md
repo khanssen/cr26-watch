@@ -11,7 +11,7 @@ This repository stores versioned snapshots under `data/cr26/` and never modifies
 
 | Path | Purpose |
 |---|---|
-| `data/cr26/` | Versioned CR26 JSON snapshots + schema. `current.json` → latest. |
+| `data/cr26/` | Versioned CR26 JSON snapshots + schema. `current.json` is a plain copy of the latest. |
 | `scripts/fetch_cr26.py` | Pull the latest dataset from GitHub, store by version. |
 | `scripts/diff_versions.py` | Rule/KSI/definition/CTL-level diff between two versions. Mapping changes have no `updated` history in the dataset; this is the only way to see them. |
 | `scripts/mapping_stats.py` | Structural properties of the KSI → SP 800-53 mapping (fan-in, fan-out, coverage). |

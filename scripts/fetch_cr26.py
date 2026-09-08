@@ -3,7 +3,7 @@ Usage: python scripts/fetch_cr26.py
 Uses the codeload tarball (no API rate limit). Updates data/cr26/current.json
 only if the version is new; prints the version either way.
 """
-import io, json, os, tarfile, urllib.request
+import io, json, tarfile, urllib.request
 from common import DATA
 
 URL = "https://codeload.github.com/FedRAMP/rules/tar.gz/main"
@@ -23,9 +23,7 @@ def main():
         print(f"already have {ver}"); return
     out.write_bytes(rules)
     (DATA / "fedramp-consolidated-rules.schema.json").write_bytes(schema)
-    link = DATA / "current.json"
-    if link.is_symlink() or link.exists(): link.unlink()
-    os.symlink(out.name, link)
+    (DATA / "current.json").write_bytes(rules)   # plain copy, not a symlink (Windows-safe)
     print(f"stored new version {ver}; current.json updated")
 
 if __name__ == "__main__":

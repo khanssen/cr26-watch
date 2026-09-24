@@ -1,49 +1,59 @@
-"""Fetch upstream, detect a new version OR a content change without a version bump,
-diff against the previous snapshot, write a report, and print a summary line
-for the CI job to use. Exit 0 always; sets GITHUB_OUTPUT changed=true|false.
+"""Fetch upstream; if the bytes differ from data/cr26/current.json (new version OR same version
+with changed content), diff old -> new, write reports, and emit outputs for the CI job.
+Exit 0 always. Writes to GITHUB_OUTPUT when set:
+  changed=true|false  note=<issue title>  report=<path>  labels=<comma list>
 """
-import hashlib, os, subprocess, sys
+import hashlib, os, subprocess, sys, tempfile
 from pathlib import Path
-from common import DATA, ROOT, load, version
+from common import DATA, ROOT, load, version, utf8_stdout
+import fetch_cr26, diff_versions
 
-def snapshots():
-    return sorted(p for p in DATA.glob("fedramp-consolidated-rules.20*.json"))
+def snapshot_name(data: bytes, fallback: str) -> str:
+    """The versioned snapshot whose bytes match, as '<version>[.<sha8>]'; else fallback."""
+    for p in DATA.glob("fedramp-consolidated-rules.20*.json"):
+        if p.read_bytes() == data:
+            return p.stem.split(".", 1)[1]
+    return fallback
 
 def main():
-    before = snapshots()
-    prev = before[-1] if before else None
-    prev_hash = hashlib.sha256(prev.read_bytes()).hexdigest() if prev else None
-    subprocess.run([sys.executable, ROOT / "scripts/fetch_cr26.py"], check=True)
-    after = snapshots()
+    utf8_stdout()
     cur = DATA / "current.json"
-    cur_hash = hashlib.sha256(cur.read_bytes()).hexdigest()
-    changed = (len(after) > len(before)) or (cur_hash != prev_hash)
-    if changed and prev and len(after) == len(before):
-        # same version string, different bytes: store it with a hash suffix so it is not lost
-        ver = version(load(cur))
-        alt = DATA / f"fedramp-consolidated-rules.{ver}.{cur_hash[:8]}.json"
-        alt.write_bytes(cur.read_bytes()); after.append(alt)
-        note = f"CONTENT CHANGED WITHOUT VERSION BUMP ({ver})"
-    else:
-        note = f"new version {version(load(cur))}" if changed else "no change"
-    report = ""
-    if changed and prev:
-        d = subprocess.run([sys.executable, ROOT / "scripts/diff_versions.py", prev, after[-1]],
-                           capture_output=True, text=True)
-        if d.returncode not in (0, 2):
-            sys.exit(f"diff_versions.py failed ({d.returncode}):\n{d.stderr}")
-        out = d.stdout
-        rp = ROOT / "reports" / f"diff.{prev.stem.split('.',1)[1]}__{after[-1].stem.split('.',1)[1]}.md"
-        rp.write_text(f"> {note}\n\n" + out); report = str(rp.relative_to(ROOT))
-        if d.returncode == 2:   # KSI set or a controls array changed -> mapping stats are stale
-            note += " [mapping changed]"
-            stats = subprocess.run([sys.executable, ROOT / "scripts/mapping_stats.py"], capture_output=True, text=True).stdout
-            (ROOT / "reports" / f"mapping-stats.{version(load(cur))}.md").write_text(stats)
+    old_bytes = cur.read_bytes() if cur.exists() else None
+    status, new_path = fetch_cr26.store(*fetch_cr26.fetch())
+    changed = status != "unchanged"
+    note, report, labels = "no change", "", []
+
+    if changed and old_bytes:
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as t:
+            t.write(old_bytes); old_tmp = t.name
+        old_doc, new_doc = load(old_tmp), load(new_path)
+        md, s = diff_versions.diff(old_doc, new_doc)
+        old_name = snapshot_name(old_bytes, version(old_doc))
+        new_name = new_path.stem.split(".", 1)[1]
+        head = ("CONTENT CHANGED WITHOUT VERSION BUMP" if status == "same-version-changed"
+                else "new version") + f" {new_name}"
+        note = f"{head}: {diff_versions.one_line(s)}"
+        rp = ROOT / "reports" / f"diff.{old_name}__{new_name}.md"
+        rp.write_text(f"> {note}\n\n" + md, encoding="utf-8")
+        report = str(rp.relative_to(ROOT)).replace("\\", "/")
+        stats = subprocess.run([sys.executable, str(ROOT / "scripts" / "mapping_stats.py"), str(new_path)],
+                               capture_output=True, text=True, encoding="utf-8").stdout
+        (ROOT / "reports" / f"mapping-stats.{new_name}.md").write_text(stats, encoding="utf-8")
+        labels = ["cr26-change"]
+        if s["mapping"]: labels.append("cr26-mapping")
+        if s["meta"]: labels.append("cr26-ruleset")
+        if s["force"]: labels.append("cr26-force")
+        if status == "same-version-changed": labels.append("cr26-no-version-bump")
+        os.unlink(old_tmp)
+    elif changed:
+        note = f"initial snapshot {new_path.stem.split('.', 1)[1]}"
+
     print(note, report)
     go = os.environ.get("GITHUB_OUTPUT")
     if go:
-        with open(go, "a") as f:
-            f.write(f"changed={'true' if changed else 'false'}\nnote={note}\nreport={report}\n")
+        with open(go, "a", encoding="utf-8") as f:
+            f.write(f"changed={'true' if changed else 'false'}\nnote={note}\n"
+                    f"report={report}\nlabels={','.join(labels)}\n")
 
 if __name__ == "__main__":
     main()

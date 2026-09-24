@@ -14,8 +14,12 @@ jobs:
           mkdir -p data/marketplace
           curl -sL https://codeload.github.com/FedRAMP/marketplace-fedramp-gov-data/tar.gz/main -o /tmp/mkt.tgz
           mkdir -p /tmp/mkt && tar xzf /tmp/mkt.tgz -C /tmp/mkt --strip-components=1
-          # keep only JSON/CSV data, stamped by date; adjust the path once the repo layout is confirmed
-          find /tmp/mkt -type f \( -name '*.json' -o -name '*.csv' \) | head -50 > /tmp/list.txt
+          # keep all JSON/CSV data, stamped by date. No truncation: if upstream grows, we capture all of it.
+          find /tmp/mkt -type f \( -name '*.json' -o -name '*.csv' \) > /tmp/list.txt
+          n=$(wc -l < /tmp/list.txt); echo "marketplace files: $n"
+          [ "$n" -gt 0 ] || { echo "::error::no JSON/CSV found upstream (layout changed?)"; exit 1; }
+          dups=$(xargs -a /tmp/list.txt -n1 basename | sort | uniq -d)
+          [ -z "$dups" ] || { echo "::error::basename collision would overwrite: $dups"; exit 1; }
           d=$(date -u +%F); mkdir -p "data/marketplace/$d"
           while read f; do cp "$f" "data/marketplace/$d/"; done < /tmp/list.txt
       - name: Commit if changed

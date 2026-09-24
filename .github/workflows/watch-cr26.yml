@@ -23,9 +23,18 @@ jobs:
           git add data/cr26 reports
           git commit -m "CR26: ${{ steps.chk.outputs.note }}"
           git push
-      - name: Open issue with the diff
+      - name: Ensure labels exist
         if: steps.chk.outputs.changed == 'true'
         env: { GH_TOKEN: "${{ github.token }}" }
         run: |
-          gh issue create --title "CR26 change: ${{ steps.chk.outputs.note }}" \
-            --body-file "${{ steps.chk.outputs.report }}" --label cr26-change
+          gh label create cr26-change          --color 1d76db --description "Upstream CR26 dataset changed" --force
+          gh label create cr26-mapping         --color b60205 --description "KSI -> 800-53 controls arrays changed" --force
+          gh label create cr26-ruleset         --color d93f0b --description "Ruleset metadata changed (status, effective dates, applicability)" --force
+          gh label create cr26-force           --color fbca04 --description "Normative keyword or force changed" --force
+          gh label create cr26-no-version-bump --color 5319e7 --description "Content changed without a version bump" --force
+      - name: Open issue with the diff
+        if: steps.chk.outputs.changed == 'true' && steps.chk.outputs.report != ''
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          gh issue create --title "CR26: ${{ steps.chk.outputs.note }}" \
+            --body-file "${{ steps.chk.outputs.report }}" --label "${{ steps.chk.outputs.labels }}"

@@ -1,0 +1,46 @@
+name: Self-test the CR26 watcher
+# Manual only. Rewinds the baseline INSIDE THE RUNNER, runs the real pipeline against
+# live upstream, and opens a [SELF-TEST] issue. Commits nothing.
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: "previous-version = replay last real release; synthetic = planted edits (all labels); no-bump = planted edits, same version string"
+        type: choice
+        options: [previous-version, synthetic, no-bump]
+        default: previous-version
+permissions:
+  contents: read
+  issues: write
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - name: Rewind local baseline
+        run: python scripts/selftest_prepare.py "${{ inputs.scenario }}"
+      - id: chk
+        name: Run the real pipeline
+        run: python scripts/check_upstream.py
+      - name: Fail if nothing was detected
+        if: steps.chk.outputs.changed != 'true' || steps.chk.outputs.report == ''
+        run: |
+          echo "::error::Self-test planted a change but the pipeline reported none. The watcher is broken."
+          exit 1
+      - name: Build issue body
+        run: |
+          {
+            echo "> **SELF-TEST (${{ inputs.scenario }}). Not a real upstream change. Nothing was committed.**"
+            echo "> A real run would apply labels: \`${{ steps.chk.outputs.labels }}\`"
+            echo "> If you got a notification for this, notifications work. Close it."
+            echo
+            cat "${{ steps.chk.outputs.report }}"
+          } > /tmp/body.md
+      - name: Open self-test issue
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          gh label create cr26-selftest --color c5def5 --description "Watcher self-test; not a real change" --force
+          gh issue create --title "[SELF-TEST] CR26: ${{ steps.chk.outputs.note }}" \
+            --body-file /tmp/body.md --label cr26-selftest

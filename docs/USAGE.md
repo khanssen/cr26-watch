@@ -14,6 +14,16 @@ Two GitHub Actions run without you:
 
 Both can be run on demand: Actions tab → pick the workflow → Run workflow.
 
+A third workflow, **Self-test the CR26 watcher**, is manual only (Actions → Self-test the CR26 watcher → Run workflow). It rewinds the baseline inside the runner, runs the real pipeline against live upstream, and opens a `[SELF-TEST]` issue labeled `cr26-selftest`. It commits nothing. The run fails loudly if the planted change goes undetected. Scenarios:
+
+| Scenario | Tests |
+|---|---|
+| `previous-version` | Replays the last real release (baseline = prior snapshot) |
+| `synthetic` | Planted AGU status flip, KSI control removal, MUST→SHOULD: exercises mapping/ruleset/force detection |
+| `no-bump` | Same edits under the same version string: exercises content-changed-without-version-bump |
+
+Run it after any change to the scripts, and once to confirm you actually get notified. Filter test issues out of real ones with `-label:cr26-selftest`.
+
 ## 2. When a `cr26-change` issue lands
 
 The issue title is the summary, e.g. `CR26: new version 2026.09.13.02: 12 substantive, 2 ruleset, 1 force-bearing, 10 silent, 1 cosmetic, 233 derived`. Labels escalate:

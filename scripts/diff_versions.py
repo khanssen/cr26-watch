@@ -1,5 +1,6 @@
 """Diff two CR26 JSON versions.
 Usage: python scripts/diff_versions.py OLD.json NEW.json [--out report.md]
+Exit code: 0 = no mapping change; 2 = a KSI was added/removed or a KSI controls array changed.
   --out writes UTF-8 directly (use it on Windows PowerShell 5.1, where `>` writes UTF-16).
 
 Compares, per item, the FULL body minus the `updated` changelog:
@@ -147,7 +148,8 @@ def diff(old, new):
                    derived=len(derived),
                    meta=sum(not c["cosmetic"] for c in meta), force=sum(c["force"] for c in changes),
                    silent=sum(c["silent"] for c in items),
-                   mapping=sum(c["key"].startswith("KSI:") and any("`controls`" in l for l in c["lines"]) for c in items),
+                   mapping=sum(c["key"].startswith("KSI:") and any("`controls`" in l for l in c["lines"]) for c in items)
+                           + sum(1 for k in added + removed if k.startswith("KSI:")),
                    baseline=sum(1 for c in subst if c["key"] == "FRR:FRC-CSF-BSL" or c["key"].startswith("CTL:"))
                             + sum(1 for k in added + removed if k.startswith("CTL:")))
     L = [f"# CR26 diff {old['info']['version']} -> {new['info']['version']}", "",
@@ -191,6 +193,7 @@ def main(argv):
         print(f"wrote {out}: {one_line(s)}")
     else:
         sys.stdout.write(md)
+    return 2 if s["mapping"] else 0
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    sys.exit(main(sys.argv[1:]))

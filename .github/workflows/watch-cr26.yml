@@ -29,6 +29,7 @@ jobs:
         run: |
           gh label create cr26-change          --color 1d76db --description "Upstream CR26 dataset changed" --force
           gh label create cr26-mapping         --color b60205 --description "KSI -> 800-53 controls arrays changed" --force
+          gh label create cr26-baseline        --color 0e8a16 --description "Rev5 baseline (FRC-CSF-BSL) or CTL parameters/guidance changed; drives oscal-fedramp-cr26" --force
           gh label create cr26-ruleset         --color d93f0b --description "Ruleset metadata changed (status, effective dates, applicability)" --force
           gh label create cr26-force           --color fbca04 --description "Normative keyword or force changed" --force
           gh label create cr26-no-version-bump --color 5319e7 --description "Content changed without a version bump" --force

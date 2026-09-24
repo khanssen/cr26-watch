@@ -7,6 +7,18 @@
 - Controls mapped from >1 KSI: 98 of 209; max fan-in 6
 - CTL: 79 control entries; 16 uniform parameter values; 5 class-varying values
 
+## KSI reference coverage of the CR26 Rev5 baselines (FRC-CSF-BSL)
+
+| Class | Baseline ids | Referenced by any KSI | No KSI reference | Families with none |
+|---|---|---|---|---|
+| B | 155 | 95 (61.3%) | 60 | MP, PE |
+| C | 322 | 199 (61.8%) | 123 | MP, PE |
+|  | +167 over B | 104 of the increment | 63 of the increment | |
+| D | 409 | 199 (48.7%) | 210 | MP, PE |
+|  | +87 over C | 0 of the increment | 87 of the increment | |
+
+- KSI-referenced ids in no Rev5 baseline: 10 (ac-2.6, at-3.5, au-3.3, ir-2.3, ir-8.1, pl-9, pm-3, pm-7, si-12.3, si-18.4)
+
 ## Top fan-in controls
 - sc-23: 6 -> KSI-IAM-APM, KSI-IAM-ELP, KSI-IAM-JIT, KSI-SVC-SIN, KSI-SVC-VCM, KSI-SVC-VRI
 - cm-2: 5 -> KSI-CMT-RMV, KSI-CNA-DFP, KSI-CNA-IBP, KSI-MLA-EVC, KSI-SVC-ACM

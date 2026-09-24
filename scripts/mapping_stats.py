@@ -3,7 +3,7 @@ Usage: python scripts/mapping_stats.py [path.json] [--baseline moderate-ids.txt]
   --out writes UTF-8 directly (use it on Windows PowerShell 5.1, where `>` writes UTF-16).
 """
 import sys, collections
-from common import load, ksis, norm_ctrl, version, utf8_stdout
+from common import load, ksis, frr_rules, norm_ctrl, version, utf8_stdout
 
 ALL_FAMS = ["ac","at","au","ca","cm","cp","ia","ir","ma","mp","pe","pl","pm","ps","pt","ra","sa","sc","si","sr"]
 
@@ -36,6 +36,25 @@ def main(argv):
     if base:
         cov = base & set(c2k)
         print(f"- Baseline coverage: {len(cov)} of {len(base)} ids touched ({100*len(cov)/len(base):.0f}%)")
+    bsl = next((r for rid, *_ , r in frr_rules(doc) if rid == "FRC-CSF-BSL"), None)
+    if bsl:
+        print("\n## KSI reference coverage of the CR26 Rev5 baselines (FRC-CSF-BSL)\n")
+        print("| Class | Baseline ids | Referenced by any KSI | No KSI reference | Families with none |")
+        print("|---|---|---|---|---|")
+        prev = None
+        for cls, cb in sorted(bsl.get("varies_by_class", {}).items()):
+            sel = {norm_ctrl(x) for fam in cb.get("rev5_controls_list", {}).values() for x in fam}
+            hit = sel & set(c2k)
+            none_fams = sorted({c.split("-")[0].upper() for c in sel} - {c.split("-")[0].upper() for c in hit})
+            print(f"| {cls.upper()} | {len(sel)} | {len(hit)} ({100*len(hit)/len(sel):.1f}%) | {len(sel)-len(hit)} | {', '.join(none_fams) or '-'} |")
+            if prev is not None and prev[1] <= sel:
+                inc = sel - prev[1]
+                print(f"|  | +{len(inc)} over {prev[0].upper()} | {len(inc & set(c2k))} of the increment | {len(inc - set(c2k))} of the increment | |")
+            prev = (cls, sel)
+        allsel = set().union(*({norm_ctrl(x) for fam in cb.get("rev5_controls_list", {}).values() for x in fam}
+                              for cb in bsl.get("varies_by_class", {}).values()))
+        outside = sorted(set(c2k) - allsel)
+        print(f"\n- KSI-referenced ids in no Rev5 baseline: {len(outside)} ({', '.join(outside)})")
     print("\n## Top fan-in controls")
     for c, k in sorted(c2k.items(), key=lambda x: -len(x[1]))[:10]:
         print(f"- {c}: {len(k)} -> {', '.join(k)}")

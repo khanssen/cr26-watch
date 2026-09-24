@@ -3,16 +3,16 @@
 
 # CR26 diff 2026.07.14.01 -> 2026.09.13.02
 
-| added | removed | substantive | ruleset/info | mapping | force-bearing | silent | cosmetic | derived |
-|---|---|---|---|---|---|---|---|---|
-| 5 | 0 | 12 | 2 | 0 | 1 | 10 | 1 | 233 |
+| added | removed | substantive | ruleset/info | mapping | baseline | force-bearing | silent | cosmetic | derived |
+|---|---|---|---|---|---|---|---|---|---|
+| 5 | 0 | 12 | 2 | 0 | 0 | 1 | 10 | 1 | 233 |
 
 ## Ruleset / dataset metadata
 - SET:FRR/CPO
     - `rev5.effective.date.grace.default`: [-2027-01-01-] {+2027-07-01+}
-    - `rev5.subsets.CSF.applicability.classes`: ["A", "B", "C", "D"] → ["B", "C", "D"]
+    - `rev5.subsets.CSF.applicability.classes`: +[] -['A']
 - SET:FRR/FRC
-    - `subsets.CCL.applicability.classes`: ["A", "B", "C", "D"] → ["B", "C", "D"]
+    - `subsets.CCL.applicability.classes`: +[] -['A']
 
 ## Added
 - FRD:FRD-MAY

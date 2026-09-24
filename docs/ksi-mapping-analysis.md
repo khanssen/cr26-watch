@@ -20,6 +20,7 @@ The KSI `controls` arrays in CR26 cannot be used to derive control-level determi
 - Zero FRR rules carry a `controls` field. The process rules contribute nothing to the map. `[DATA]`
 - The `CTL` section supplies FedRAMP-assigned parameter values for **14 controls (16 values)** plus 5 class-varying values on `SA-09-05`, and guidance strings for 63 controls. That is the entirety of control-level parameterization in CR26. `[DATA]`
 - The mapping is labeled "Related SP 800-53 Controls" in the human-readable rules. No CR26 rule assigns it force, requires it to be used, or defines what a relation means. `[RULE]` (absence; verified by searching all `all`/`20x` FRR rules for "800-53" and "mapp". The only hit is `FRC-CLA-MFR`, which uses "mapping" to mean artifact-to-rule mapping. `FRC-CSF-BSL` also matches but is Rev5-scoped.)
+- Against the Rev5 baselines CR26 itself defines (`FRC-CSF-BSL`), KSI references cover 61.3% of Class B (95 of 155), 61.8% of Class C (199 of 322), and 48.7% of Class D (199 of 409). The baselines nest (B ⊂ C ⊂ D). **None of the 87 controls Class D adds over Class C is referenced by any KSI.** MP and PE have no KSI reference in any class. Ten KSI-referenced identifiers appear in no Rev5 baseline at all. `[DATA]` (`scripts/mapping_stats.py`)
 - The mapping has no change history of its own. A KSI's `updated` log does not record edits to its `controls` array, so remapping is visible only by diffing dataset versions (`scripts/diff_versions.py`, which flags such changes `SILENT`). `[DATA]`
 
 Formal properties: `[ANALYSIS, from DATA]`
@@ -27,7 +28,7 @@ Formal properties: `[ANALYSIS, from DATA]`
 | Property | Meaning here | Consequence |
 |---|---|---|
 | **Non-injective** | Many controls map to multiple KSIs; many KSIs map to multiple controls | A KSI result cannot be attributed to a single control, and a control's status cannot be read from a single KSI |
-| **Non-total** | Roughly half the Moderate baseline is untouched; three families absent; two KSIs map to nothing | Much of the baseline has no 20x signal at all (see §6) |
+| **Non-total** | 38% of Class C and 51% of Class D baseline controls are untouched, including the entire C→D increment; MP and PE absent; two KSIs map to nothing | Much of the baseline has no 20x signal at all |
 | **Non-normative** | No rule requires or defines the relation; label is "Related" | Nothing in the mapping can be asserted as a requirement or a determination |
 | **Unparameterized** | Only 16 (+5) ODP values exist program-wide (`CTL`) | Even a perfectly mapped control has no FedRAMP-assigned parameter to test against |
 | **Not invertible** | All of the above together | There is no function from a set of KSI results to a set of control determinations. This is a structural property, not a documentation gap. |
@@ -72,5 +73,5 @@ It is not good for SSP generation, SAR generation, control-level SDRs, ODP inher
 
 ## 6. Open items
 
-- `[UNVERIFIED]` The "roughly half the Moderate baseline" figure depends on a baseline count (~409 identifiers) from prior work, not recomputed here. Recompute with `python scripts/mapping_stats.py --baseline <moderate-ids.txt>` from the OSCAL Moderate profile.
+- *Resolved 2026-09-24:* the earlier "~409 Moderate-baseline identifiers" figure was the Class D count, not a Moderate-sized baseline. Coverage is now computed per class from CR26's own baselines (§2).
 - `[DATA]` **AGU (Agency Use)** is populated: 20 rules as of v2026.09.13.02. None defines an agency-side mapping, control inheritance, or any use of the KSI `controls` arrays; the only "control" string is the OSCAL name in `AGU-AGC-GRC`. The ruleset's own `info.status` still reads `placeholder`. The watcher flags any change to ruleset status or content (`cr26-ruleset` label). If an agency-side mapping or inheritance rule appears, §3–§4 need re-checking against it.

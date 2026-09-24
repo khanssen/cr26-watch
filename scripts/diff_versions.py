@@ -116,8 +116,11 @@ def compare(key, a, b, ua, ub, ignored=frozenset()):
         cos = path in fa and path in fb and cosmetic(x, y)
         all_cos &= cos; real |= not cos
         tag = " *(cosmetic)*" if cos else ""
-        if path.endswith("controls") and isinstance(x, list) and isinstance(y, list):
-            lines.append(f"    - `{path}` +{sorted(set(y)-set(x))} -{sorted(set(x)-set(y))}")
+        if isinstance(x, list) and isinstance(y, list) and all(isinstance(i, str) for i in x + y) \
+                and (path.endswith("controls") or len(x) + len(y) > 6 or set(x) != set(y)):
+            add, rem = sorted(set(y) - set(x)), sorted(set(x) - set(y))
+            what = f"+{add} -{rem}" if (add or rem) else "reordered only"
+            lines.append(f"    - `{path}`{tag}: {what}")
         elif isinstance(x, str) and isinstance(y, str):
             txt, rem, add = word_diff(x, y)
             if not cos and touches_force(rem + add): force = True
@@ -144,11 +147,13 @@ def diff(old, new):
                    derived=len(derived),
                    meta=sum(not c["cosmetic"] for c in meta), force=sum(c["force"] for c in changes),
                    silent=sum(c["silent"] for c in items),
-                   mapping=sum(any("controls` +" in l for l in c["lines"]) for c in items))
+                   mapping=sum(c["key"].startswith("KSI:") and any("`controls`" in l for l in c["lines"]) for c in items),
+                   baseline=sum(1 for c in subst if c["key"] == "FRR:FRC-CSF-BSL" or c["key"].startswith("CTL:"))
+                            + sum(1 for k in added + removed if k.startswith("CTL:")))
     L = [f"# CR26 diff {old['info']['version']} -> {new['info']['version']}", "",
-         "| added | removed | substantive | ruleset/info | mapping | force-bearing | silent | cosmetic | derived |",
-         "|---|---|---|---|---|---|---|---|---|",
-         "| {added} | {removed} | {substantive} | {meta} | {mapping} | {force} | {silent} | {cosmetic} | {derived} |".format(**summary), ""]
+         "| added | removed | substantive | ruleset/info | mapping | baseline | force-bearing | silent | cosmetic | derived |",
+         "|---|---|---|---|---|---|---|---|---|---|",
+         "| {added} | {removed} | {substantive} | {meta} | {mapping} | {baseline} | {force} | {silent} | {cosmetic} | {derived} |".format(**summary), ""]
     def block(title, cs):
         if not cs: return
         L.append(f"## {title}")
@@ -170,7 +175,7 @@ def diff(old, new):
 
 def one_line(s):
     parts = [f"{s['substantive']} substantive"]
-    for k, lab in (("meta", "ruleset"), ("added", "added"), ("removed", "removed"), ("mapping", "MAPPING"),
+    for k, lab in (("meta", "ruleset"), ("added", "added"), ("removed", "removed"), ("mapping", "MAPPING"), ("baseline", "BASELINE"),
                    ("force", "force-bearing"), ("silent", "silent"), ("cosmetic", "cosmetic"), ("derived", "derived")):
         if s[k]: parts.append(f"{s[k]} {lab}")
     return ", ".join(parts)

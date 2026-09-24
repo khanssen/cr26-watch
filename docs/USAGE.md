@@ -32,6 +32,7 @@ The issue title is the summary, e.g. `CR26: new version 2026.09.13.02: 12 substa
 |---|---|
 | `cr26-change` | Always present |
 | `cr26-mapping` | A KSI `controls` array changed. This is what the repo exists to catch. |
+| `cr26-baseline` | Rev5 baseline list (`FRC-CSF-BSL`) or `CTL` parameter values/guidance changed. These drive the OSCAL profiles in `oscal-fedramp-cr26`. |
 | `cr26-ruleset` | Ruleset metadata changed: `status` (e.g. AGU leaving `placeholder`), purpose, effective/grace dates, subset applicability. None of this has a changelog in the dataset. |
 | `cr26-force` | A normative keyword (MUST, SHOULD, MAY, NOT, UNLESS…) or "if applicable" was added/removed, or a `force` field changed |
 | `cr26-no-version-bump` | Content changed but `info.version` did not. Worth a note to the PMO. |

@@ -41,6 +41,7 @@ def main():
         (ROOT / "reports" / f"mapping-stats.{new_name}.md").write_text(stats, encoding="utf-8")
         labels = ["cr26-change"]
         if s["mapping"]: labels.append("cr26-mapping")
+        if s["baseline"]: labels.append("cr26-baseline")
         if s["meta"]: labels.append("cr26-ruleset")
         if s["force"]: labels.append("cr26-force")
         if status == "same-version-changed": labels.append("cr26-no-version-bump")

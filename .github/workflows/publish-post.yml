@@ -1,0 +1,27 @@
+name: Publish change posts as releases
+# When a post lands on main (normally by merging its PR), publish it as a GitHub Release.
+# Watchers subscribed to Releases are notified; the Releases feed is RSS/Atom.
+on:
+  push:
+    branches: [main]
+    paths: ["posts/*-cr26-*.md"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          for f in posts/*-cr26-*.md; do
+            name=$(basename "$f" .md); name=${name#*-cr26-}          # e.g. 2026.09.13.02
+            tag="cr26-$name"
+            if gh release view "$tag" >/dev/null 2>&1; then
+              gh release edit "$tag" --notes-file "$f"                 # keep release text in sync with later analysis edits
+            else
+              title=$(sed -n '2s/^# //p' "$f")
+              gh release create "$tag" --target main --title "$title" --notes-file "$f"
+            fi
+          done

@@ -17,6 +17,8 @@ This repository stores versioned snapshots under `data/cr26/` and never modifies
 | `scripts/mapping_stats.py` | Structural properties of the KSI → SP 800-53 mapping (fan-in, fan-out, coverage). |
 | `scripts/sync_workpaper_data.py` | Regenerate the KSI array embedded in an HTML workpaper tool and stamp the CR26 version. |
 | `reports/` | Generated, dated reports. |
+| `posts/` | Public, facts-only change posts (one per release), published as GitHub Releases on merge. Analysis sections are the author's. |
+| `scripts/make_post.py` | Generates a change post; never writes the Analysis section. |
 | `docs/` | Analysis and standing positions, with rule-ID citations. Start with `docs/ksi-mapping-analysis.md`. |
 | `tools/` | Public tools (none yet). |
 

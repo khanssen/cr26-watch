@@ -6,6 +6,7 @@ on:
 permissions:
   contents: write
   issues: write
+  pull-requests: write
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -27,15 +28,32 @@ jobs:
         if: steps.chk.outputs.changed == 'true'
         env: { GH_TOKEN: "${{ github.token }}" }
         run: |
+          gh label create cr26-post            --color c2e0c6 --description "Draft change post; merge to publish" --force
           gh label create cr26-change          --color 1d76db --description "Upstream CR26 dataset changed" --force
           gh label create cr26-mapping         --color b60205 --description "KSI -> 800-53 controls arrays changed" --force
           gh label create cr26-baseline        --color 0e8a16 --description "Rev5 baseline (FRC-CSF-BSL) or CTL parameters/guidance changed; drives oscal-fedramp-cr26" --force
           gh label create cr26-ruleset         --color d93f0b --description "Ruleset metadata changed (status, effective dates, applicability)" --force
           gh label create cr26-force           --color fbca04 --description "Normative keyword or force changed" --force
           gh label create cr26-no-version-bump --color 5319e7 --description "Content changed without a version bump" --force
+      - id: pr
+        name: Open PR with the draft post
+        if: steps.chk.outputs.changed == 'true' && steps.chk.outputs.post != ''
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          b="post/${{ steps.chk.outputs.name }}"
+          git switch -c "$b"
+          git add posts
+          git commit -m "Post: CR26 ${{ steps.chk.outputs.name }}"
+          git push -u origin "$b"
+          url=$(gh pr create --base main --head "$b" --label cr26-post \
+                  --title "Post: CR26 ${{ steps.chk.outputs.name }}" \
+                  --body "Generated, facts-only change post. Add anything interpretive under **## Analysis** (mark it [ANALYSIS]), then merge. Merging publishes it as a GitHub Release." ) \
+            || { echo "::warning::Could not open the PR. Enable Settings > Actions > General > 'Allow GitHub Actions to create and approve pull requests'. Branch $b was pushed; open the PR by hand."; url="branch $b (PR not opened)"; }
+          echo "url=$url" >> "$GITHUB_OUTPUT"
       - name: Open issue with the diff
         if: steps.chk.outputs.changed == 'true' && steps.chk.outputs.report != ''
         env: { GH_TOKEN: "${{ github.token }}" }
         run: |
+          { [ -n "${{ steps.pr.outputs.url }}" ] && echo "> Draft post: ${{ steps.pr.outputs.url }}" && echo; cat "${{ steps.chk.outputs.report }}"; } > /tmp/issue.md
           gh issue create --title "CR26: ${{ steps.chk.outputs.note }}" \
-            --body-file "${{ steps.chk.outputs.report }}" --label "${{ steps.chk.outputs.labels }}"
+            --body-file /tmp/issue.md --label "${{ steps.chk.outputs.labels }}"

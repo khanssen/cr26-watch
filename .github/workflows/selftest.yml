@@ -37,7 +37,11 @@ jobs:
             echo "> If you got a notification for this, notifications work. Close it."
             echo
             cat "${{ steps.chk.outputs.report }}"
+            echo; echo "---"; echo "## Post preview (not committed)"; echo
+            if [ -n "${{ steps.chk.outputs.post }}" ]; then cat "${{ steps.chk.outputs.post }}"; else echo "::error::no post generated"; exit 1; fi
           } > /tmp/body.md
+      - name: Trim body to GitHub's limit
+        run: python -c "import io;p='/tmp/body.md';t=io.open(p,encoding='utf-8').read();io.open(p,'w',encoding='utf-8').write(t if len(t)<=65000 else t[:64000]+'\n\n*(truncated for the issue body limit)*\n')"
       - name: Open self-test issue
         env: { GH_TOKEN: "${{ github.token }}" }
         run: |

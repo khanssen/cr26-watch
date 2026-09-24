@@ -54,6 +54,19 @@ Then:
 2. If a rule you cite in analysis changed, update the citation and the `updated` date you quote.
 3. Close the issue with a one-line note of what, if anything, you did.
 
+## 2a. Change posts
+
+Each detected change also produces a public post, `posts/<last_updated>-cr26-<version>.md`, delivered as a pull request labeled `cr26-post`. The `cr26-change` issue links to it.
+
+- **Everything above `## Analysis` is generated** and carries only `[RULE]` (CR26 text, quoted or word-diffed) or `[DATA]` (computed). Word diffs render as ~~removed~~ **added**.
+- **`## Analysis` is yours.** The generator never writes there, and regenerating a post preserves whatever you put in it. Mark claims `[ANALYSIS]`, or leave the placeholder.
+- **Merging the PR publishes the post** as a GitHub Release tagged `cr26-<version>` (`publish-post.yml`). Editing a post on `main` later updates its release text. Readers who Watch → Custom → Releases are notified, and the Releases page has an Atom feed.
+- `posts/README.md` is the index, newest first.
+
+One-time setting: **Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests."** Without it, the branch is still pushed but the PR is not opened, and the run warns you.
+
+To write a post by hand (e.g. backfill): `python scripts\make_post.py OLD.json NEW.json --detected YYYY-MM-DD`.
+
 ## 3. Running the scripts locally
 
 Requires Python 3.10+. No packages beyond the standard library.

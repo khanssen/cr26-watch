@@ -6,7 +6,8 @@ Exit 0 always. Writes to GITHUB_OUTPUT when set:
 import hashlib, os, subprocess, sys, tempfile
 from pathlib import Path
 from common import DATA, ROOT, load, version, utf8_stdout
-import fetch_cr26, diff_versions
+import datetime as dt
+import fetch_cr26, diff_versions, make_post
 
 def snapshot_name(data: bytes, fallback: str) -> str:
     """The versioned snapshot whose bytes match, as '<version>[.<sha8>]'; else fallback."""
@@ -21,7 +22,7 @@ def main():
     old_bytes = cur.read_bytes() if cur.exists() else None
     status, new_path = fetch_cr26.store(*fetch_cr26.fetch())
     changed = status != "unchanged"
-    note, report, labels = "no change", "", []
+    note, report, labels, post = "no change", "", [], ""
 
     if changed and old_bytes:
         with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as t:
@@ -39,6 +40,11 @@ def main():
         stats = subprocess.run([sys.executable, str(ROOT / "scripts" / "mapping_stats.py"), str(new_path)],
                                capture_output=True, text=True, encoding="utf-8").stdout
         (ROOT / "reports" / f"mapping-stats.{new_name}.md").write_text(stats, encoding="utf-8")
+        pp = make_post.write_post(
+            old_doc, new_doc, old_name=old_name, new_name=new_name, status=status,
+            old_sha=hashlib.sha256(old_bytes).hexdigest(), new_sha=hashlib.sha256(new_path.read_bytes()).hexdigest(),
+            detected=dt.datetime.now(dt.timezone.utc).date().isoformat(), report_rel=report)
+        post = pp.relative_to(ROOT).as_posix()
         labels = ["cr26-change"]
         if s["mapping"]: labels.append("cr26-mapping")
         if s["baseline"]: labels.append("cr26-baseline")
@@ -54,7 +60,8 @@ def main():
     if go:
         with open(go, "a", encoding="utf-8") as f:
             f.write(f"changed={'true' if changed else 'false'}\nnote={note}\n"
-                    f"report={report}\nlabels={','.join(labels)}\n")
+                    f"report={report}\nlabels={','.join(labels)}\npost={post}\n"
+                    f"name={new_path.stem.split('.', 1)[1] if changed else ''}\n")
 
 if __name__ == "__main__":
     main()

@@ -2,6 +2,7 @@
 Usage: python scripts/diff_versions.py OLD.json NEW.json
 Mapping (controls-array) changes have NO `updated` history in the dataset;
 this script is the only way to see them.
+Exit code: 0 = no mapping change; 2 = a KSI was added/removed or a controls array changed.
 """
 import sys
 from common import load, ksis, frr_rules, norm_ctrl, class_statement
@@ -27,6 +28,7 @@ def main(old_p, new_p):
     oi, ni = index(old), index(new)
     print(f"# CR26 diff {old['info']['version']} -> {new['info']['version']}\n")
     added = sorted(set(ni) - set(oi)); removed = sorted(set(oi) - set(ni))
+    mapping_changed = any(k.startswith("KSI:") for k in added + removed)
     if added: print("## Added\n" + "\n".join(f"- {k}" for k in added) + "\n")
     if removed: print("## Removed\n" + "\n".join(f"- {k}" for k in removed) + "\n")
     print("## Changed")
@@ -38,8 +40,10 @@ def main(old_p, new_p):
         fields = sorted(f for f in set(a) | set(b) if a.get(f) != b.get(f))
         print(f"- {k}: {', '.join(fields)}")
         if k.startswith("KSI:") and a.get("controls") != b.get("controls"):
+            mapping_changed = True
             print(f"    controls +{sorted(set(b['controls'])-set(a['controls']))} -{sorted(set(a['controls'])-set(b['controls']))}")
     if not n: print("- (none)")
+    return mapping_changed
 
 if __name__ == "__main__":
-    main(*sys.argv[1:3])
+    sys.exit(2 if main(*sys.argv[1:3]) else 0)

@@ -28,12 +28,17 @@ def main():
         note = f"new version {version(load(cur))}" if changed else "no change"
     report = ""
     if changed and prev:
-        out = subprocess.run([sys.executable, ROOT / "scripts/diff_versions.py", prev, after[-1]],
-                             capture_output=True, text=True, check=True).stdout
+        d = subprocess.run([sys.executable, ROOT / "scripts/diff_versions.py", prev, after[-1]],
+                           capture_output=True, text=True)
+        if d.returncode not in (0, 2):
+            sys.exit(f"diff_versions.py failed ({d.returncode}):\n{d.stderr}")
+        out = d.stdout
         rp = ROOT / "reports" / f"diff.{prev.stem.split('.',1)[1]}__{after[-1].stem.split('.',1)[1]}.md"
         rp.write_text(f"> {note}\n\n" + out); report = str(rp.relative_to(ROOT))
-        stats = subprocess.run([sys.executable, ROOT / "scripts/mapping_stats.py"], capture_output=True, text=True).stdout
-        (ROOT / "reports" / f"mapping-stats.{version(load(cur))}.md").write_text(stats)
+        if d.returncode == 2:   # KSI set or a controls array changed -> mapping stats are stale
+            note += " [mapping changed]"
+            stats = subprocess.run([sys.executable, ROOT / "scripts/mapping_stats.py"], capture_output=True, text=True).stdout
+            (ROOT / "reports" / f"mapping-stats.{version(load(cur))}.md").write_text(stats)
     print(note, report)
     go = os.environ.get("GITHUB_OUTPUT")
     if go:

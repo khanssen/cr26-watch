@@ -8,10 +8,12 @@ string, against data/cr26/current.json:
   - same version, different bytes -> stored as fedramp-consolidated-rules.<version>.<sha8>.json
 current.json is always a plain copy (not a symlink; Windows-safe) of the latest bytes.
 """
-import hashlib, io, json, tarfile, urllib.request
+import hashlib, io, json, re, tarfile, urllib.request
 from common import DATA
 
 URL = "https://codeload.github.com/FedRAMP/rules/tar.gz/main"
+# The upstream version string becomes a filename, a git ref, and a commit message. Only this shape passes.
+VERSION = re.compile(r"\d{4}\.\d{2}\.\d{2}\.\d{2}")
 
 def fetch():
     buf = io.BytesIO(urllib.request.urlopen(URL, timeout=60).read())
@@ -33,6 +35,8 @@ def store(rules, schema=None):
     if cur.exists() and cur.read_bytes() == rules:
         return "unchanged", cur
     ver = json.loads(rules)["info"]["version"]
+    if not isinstance(ver, str) or not VERSION.fullmatch(ver):
+        raise SystemExit(f"refusing upstream version {ver!r}: expected YYYY.MM.DD.NN. Nothing written.")
     out = DATA / f"fedramp-consolidated-rules.{ver}.json"
     status = "new-version"
     if out.exists():

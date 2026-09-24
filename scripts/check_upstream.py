@@ -3,11 +3,19 @@ with changed content), diff old -> new, write reports, and emit outputs for the 
 Exit 0 always. Writes to GITHUB_OUTPUT when set:
   changed=true|false  note=<issue title>  report=<path>  labels=<comma list>
 """
-import hashlib, os, subprocess, sys, tempfile
+import hashlib, os, re, subprocess, sys, tempfile
 from pathlib import Path
 from common import DATA, ROOT, load, version, utf8_stdout
 import datetime as dt
 import fetch_cr26, diff_versions, make_post
+
+# Upstream-derived strings reach git refs, commit messages, and CI outputs. Only this shape passes.
+SAFE_NAME = re.compile(r"\d{4}\.\d{2}\.\d{2}\.\d{2}(\.[0-9a-f]{8})?")
+
+def safe(name):
+    if not SAFE_NAME.fullmatch(name):
+        sys.exit(f"refusing unexpected version/snapshot name {name!r}: expected YYYY.MM.DD.NN[.sha8]")
+    return name
 
 def snapshot_name(data: bytes, fallback: str) -> str:
     """The versioned snapshot whose bytes match, as '<version>[.<sha8>]'; else fallback."""
@@ -29,8 +37,8 @@ def main():
             t.write(old_bytes); old_tmp = t.name
         old_doc, new_doc = load(old_tmp), load(new_path)
         md, s = diff_versions.diff(old_doc, new_doc)
-        old_name = snapshot_name(old_bytes, version(old_doc))
-        new_name = new_path.stem.split(".", 1)[1]
+        old_name = safe(snapshot_name(old_bytes, version(old_doc)))
+        new_name = safe(new_path.stem.split(".", 1)[1])
         head = ("CONTENT CHANGED WITHOUT VERSION BUMP" if status == "same-version-changed"
                 else "new version") + f" {new_name}"
         note = f"{head}: {diff_versions.one_line(s)}"
@@ -61,7 +69,7 @@ def main():
         with open(go, "a", encoding="utf-8") as f:
             f.write(f"changed={'true' if changed else 'false'}\nnote={note}\n"
                     f"report={report}\nlabels={','.join(labels)}\npost={post}\n"
-                    f"name={new_path.stem.split('.', 1)[1] if changed else ''}\n")
+                    f"name={safe(new_path.stem.split('.', 1)[1]) if changed else ''}\n")
 
 if __name__ == "__main__":
     main()

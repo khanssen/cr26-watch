@@ -3,6 +3,18 @@
 How to run and read this repository. Commands are shown for PowerShell; on
 macOS/Linux use `/` paths and `python3`.
 
+## 0. Alerts
+
+Every `cr26-change` issue (and every `[SELF-TEST]` issue) is **assigned to the repo owner**. GitHub always notifies assignees, whatever your Watch setting. Where that notification goes is set on your account: Settings → Notifications → *Default notifications email*, plus the GitHub mobile app if you want push.
+
+A failed scheduled run emails whoever last edited that workflow. A broken watcher reaches you the same way a rule change does.
+
+GitHub disables scheduled workflows in public repos after 60 days without repository activity. The weekly marketplace snapshot commits normally prevent that. If the daily watcher ever goes quiet for two months, check the Actions tab first.
+
+## Workflow security
+
+Values derived from upstream data (version strings, notes, labels, paths) reach shell steps only through `env:`, never as `${{ }}` inside `run:`. `fetch_cr26.py` refuses any upstream version not shaped `YYYY.MM.DD.NN` before writing anything, since that string becomes a filename, a branch name, and a commit message.
+
 ## 1. What runs on its own
 
 Two GitHub Actions run without you:
@@ -56,14 +68,14 @@ Then:
 
 ## 2a. Change posts
 
-Each detected change also produces a public post, `posts/<last_updated>-cr26-<version>.md`, delivered as a pull request labeled `cr26-post`. The `cr26-change` issue links to it.
+Each detected change also produces a public post, `posts/<last_updated>-cr26-<version>.md`. The watcher pushes it to a branch `post/<version>`, and the `cr26-change` issue (assigned to you) links to a one-click **open a pull request** page for it.
 
 - **Everything above `## Analysis` is generated** and carries only `[RULE]` (CR26 text, quoted or word-diffed) or `[DATA]` (computed). Word diffs render as ~~removed~~ **added**.
 - **`## Analysis` is yours.** The generator never writes there, and regenerating a post preserves whatever you put in it. Mark claims `[ANALYSIS]`, or leave the placeholder.
 - **Merging the PR publishes the post** as a GitHub Release tagged `cr26-<version>` (`publish-post.yml`). Editing a post on `main` later updates its release text. Readers who Watch → Custom → Releases are notified, and the Releases page has an Atom feed.
 - `posts/README.md` is the index, newest first.
 
-One-time setting: **Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests."** Without it, the branch is still pushed but the PR is not opened, and the run warns you.
+No repository setting is needed: the workflow only pushes a branch and never creates or approves pull requests itself, so "Allow GitHub Actions to create and approve pull requests" stays off.
 
 To write a post by hand (e.g. backfill): `python scripts\make_post.py OLD.json NEW.json --detected YYYY-MM-DD`.
 

@@ -1,6 +1,7 @@
 name: Self-test the CR26 watcher
 # Manual only. Rewinds the baseline INSIDE THE RUNNER, runs the real pipeline against
-# live upstream, and opens a [SELF-TEST] issue. Commits nothing.
+# live upstream, and opens a [SELF-TEST] issue assigned to the repo owner (so it also
+# tests that the alert reaches you). Commits nothing.
 on:
   workflow_dispatch:
     inputs:
@@ -20,31 +21,38 @@ jobs:
       - uses: actions/setup-python@v6
         with: { python-version: "3.12" }
       - name: Rewind local baseline
-        run: python scripts/selftest_prepare.py "${{ inputs.scenario }}"
+        env: { SCENARIO: "${{ inputs.scenario }}" }
+        run: python scripts/selftest_prepare.py "$SCENARIO"
       - id: chk
         name: Run the real pipeline
         run: python scripts/check_upstream.py
       - name: Fail if nothing was detected
-        if: steps.chk.outputs.changed != 'true' || steps.chk.outputs.report == ''
+        if: steps.chk.outputs.changed != 'true' || steps.chk.outputs.report == '' || steps.chk.outputs.post == ''
         run: |
-          echo "::error::Self-test planted a change but the pipeline reported none. The watcher is broken."
+          echo "::error::Self-test planted a change but the pipeline did not produce a report and post. The watcher is broken."
           exit 1
       - name: Build issue body
+        env:
+          SCENARIO: "${{ inputs.scenario }}"
+          LABELS: "${{ steps.chk.outputs.labels }}"
+          REPORT: "${{ steps.chk.outputs.report }}"
+          POST: "${{ steps.chk.outputs.post }}"
         run: |
           {
-            echo "> **SELF-TEST (${{ inputs.scenario }}). Not a real upstream change. Nothing was committed.**"
-            echo "> A real run would apply labels: \`${{ steps.chk.outputs.labels }}\`"
-            echo "> If you got a notification for this, notifications work. Close it."
+            echo "> **SELF-TEST ($SCENARIO). Not a real upstream change. Nothing was committed.**"
+            echo "> A real run would apply labels: \`$LABELS\`"
+            echo "> If you got a notification for this, alerts work. Close it."
             echo
-            cat "${{ steps.chk.outputs.report }}"
+            cat "$REPORT"
             echo; echo "---"; echo "## Post preview (not committed)"; echo
-            if [ -n "${{ steps.chk.outputs.post }}" ]; then cat "${{ steps.chk.outputs.post }}"; else echo "::error::no post generated"; exit 1; fi
+            cat "$POST"
           } > /tmp/body.md
-      - name: Trim body to GitHub's limit
-        run: python -c "import io;p='/tmp/body.md';t=io.open(p,encoding='utf-8').read();io.open(p,'w',encoding='utf-8').write(t if len(t)<=65000 else t[:64000]+'\n\n*(truncated for the issue body limit)*\n')"
-      - name: Open self-test issue
-        env: { GH_TOKEN: "${{ github.token }}" }
+          python -c "import io;p='/tmp/body.md';t=io.open(p,encoding='utf-8').read();io.open(p,'w',encoding='utf-8').write(t if len(t)<=65000 else t[:64000]+'\n\n*(truncated for the issue body limit)*\n')"
+      - name: Open self-test issue, assigned to the repo owner
+        env:
+          GH_TOKEN: "${{ github.token }}"
+          NOTE: "${{ steps.chk.outputs.note }}"
         run: |
           gh label create cr26-selftest --color c5def5 --description "Watcher self-test; not a real change" --force
-          gh issue create --title "[SELF-TEST] CR26: ${{ steps.chk.outputs.note }}" \
-            --body-file /tmp/body.md --label cr26-selftest
+          gh issue create --title "[SELF-TEST] CR26: $NOTE" --body-file /tmp/body.md \
+            --label cr26-selftest --assignee "$GITHUB_REPOSITORY_OWNER"

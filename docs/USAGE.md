@@ -9,20 +9,33 @@ Two GitHub Actions run without you:
 
 | Workflow | Schedule | What it does |
 |---|---|---|
-| Watch FedRAMP/rules for CR26 changes | daily, 11:17 UTC | Fetches the upstream dataset. If the version string changed **or** the bytes changed under the same version, it commits the new snapshot to `data/cr26/`, writes `reports/diff.<old>__<new>.md` and a fresh `reports/mapping-stats.<version>.md`, and opens an issue labeled `cr26-change` with the diff as the body. |
+| Watch FedRAMP/rules for CR26 changes | daily, 11:17 UTC | Fetches the upstream dataset and compares **bytes** against `data/cr26/current.json`. On any difference it stores the snapshot (`<version>.json`, or `<version>.<sha8>.json` if the version string did not change), writes `reports/diff.<old>__<new>.md` and `reports/mapping-stats.<new>.md`, and opens an issue with the diff as the body. |
 | Watch marketplace-fedramp-gov-data | weekly, Monday | Commits a dated snapshot of the Marketplace data under `data/marketplace/<date>/`. Nothing is analyzed; this is raw longitudinal capture. |
 
 Both can be run on demand: Actions tab → pick the workflow → Run workflow.
 
 ## 2. When a `cr26-change` issue lands
 
-The issue body is the output of `scripts/diff_versions.py`. Read it top to bottom:
+The issue title is the summary, e.g. `CR26: new version 2026.09.13.02: 12 substantive, 2 ruleset, 1 force-bearing, 10 silent, 1 cosmetic, 233 derived`. Labels escalate:
 
-- **Added / Removed** — new or deleted rule, KSI, definition, or CTL IDs.
-- **Changed** — one line per ID with the fields that differ (`statement`, `force`, `notes`, `fi` = following_information, `controls`, `parameters`, `guidance`).
-- **`controls +[...] -[...]`** under a KSI line — the KSI → SP 800-53 mapping changed. This is the only place that change is visible; the dataset carries no `updated` entry for it.
+| Label | Meaning |
+|---|---|
+| `cr26-change` | Always present |
+| `cr26-mapping` | A KSI `controls` array changed. This is what the repo exists to catch. |
+| `cr26-ruleset` | Ruleset metadata changed: `status` (e.g. AGU leaving `placeholder`), purpose, effective/grace dates, subset applicability. None of this has a changelog in the dataset. |
+| `cr26-force` | A normative keyword (MUST, SHOULD, MAY, NOT, UNLESS…) or "if applicable" was added/removed, or a `force` field changed |
+| `cr26-no-version-bump` | Content changed but `info.version` did not. Worth a note to the PMO. |
 
-The header line says `new version X` or `CONTENT CHANGED WITHOUT VERSION BUMP (X)`. The second is worth a note to the PMO: the published version string did not change but the rules did.
+The body is `scripts/diff_versions.py` output, in this order:
+
+- **Summary table** of counts.
+- **Ruleset / dataset metadata**: changes to ruleset `info` blocks and top-level `info`.
+- **Added / Removed**: rule, KSI, definition, or CTL IDs.
+- **Substantive**: one entry per changed item, one line per changed field. Text fields show an inline word diff, `[-removed-] {+added+}`; `controls` shows `+[...] -[...]`.
+- **Cosmetic**: text identical after normalizing whitespace, quote/dash glyphs, and doubled words ("the the").
+- **Derived**: items whose only change is a `terms` list losing terms whose definition was newly flagged `ignore_in_terms`. Reported as a single count; one definition flag can touch hundreds of rules.
+
+Flags on items: **FORCE** as above; **SILENT** means the item's body changed but its `updated` changelog did not.
 
 Then:
 
@@ -39,10 +52,10 @@ Requires Python 3.10+. No packages beyond the standard library.
 python scripts\fetch_cr26.py
 
 # Diff two versions
-python scripts\diff_versions.py data\cr26\fedramp-consolidated-rules.2026.07.14.01.json data\cr26\current.json
+python scripts\diff_versions.py data\cr26\fedramp-consolidated-rules.2026.07.14.01.json data\cr26\current.json --out reports\diff.local.md
 
 # Mapping statistics (fan-in, fan-out, families absent, CTL parameter counts)
-python scripts\mapping_stats.py > reports\mapping-stats.local.md
+python scripts\mapping_stats.py --out reports\mapping-stats.local.md
 
 # Same, with baseline coverage: hand it a file of Moderate-baseline control ids, one per line
 python scripts\mapping_stats.py --baseline path\to\moderate-ids.txt
@@ -51,7 +64,9 @@ python scripts\mapping_stats.py --baseline path\to\moderate-ids.txt
 python scripts\check_upstream.py
 ```
 
-`fetch_cr26.py` uses the codeload tarball, not the GitHub API, so it is not rate-limited and needs no token.
+`fetch_cr26.py` uses the codeload tarball, not the GitHub API, so it is not rate-limited and needs no token. It compares bytes, not the version string, so a content change without a version bump is stored rather than skipped.
+
+All scripts read and write UTF-8 explicitly. Use `--out` rather than `>` when saving reports: Windows PowerShell 5.1 redirection writes UTF-16, which GitHub renders as garbage.
 
 ## 4. Keeping an HTML tool in sync
 
@@ -76,7 +91,7 @@ If the action is down or you want a specific historical version:
 
 1. Save the JSON as `data\cr26\fedramp-consolidated-rules.<version>.json` (the `<version>` is `info.version` inside the file).
 2. Copy it over `data\cr26\current.json`.
-3. Run `diff_versions.py` against the previous file and save the output to `reports\`.
+3. Run `diff_versions.py` against the previous file with `--out reports\diff.<old>__<new>.md`.
 4. Commit all three.
 
 Do not edit any file under `data\cr26\`. They are byte-exact copies of U.S. Government works; `.gitattributes` marks JSON as `-text` so Git never rewrites them.

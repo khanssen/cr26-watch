@@ -13,11 +13,11 @@ This repository stores versioned snapshots under `data/cr26/` and never modifies
 |---|---|
 | `data/cr26/` | Versioned CR26 JSON snapshots + schema. `current.json` is a plain copy of the latest. |
 | `scripts/fetch_cr26.py` | Pull the latest dataset from GitHub, store by version. |
-| `scripts/diff_versions.py` | Rule/KSI/definition/CTL-level diff between two versions. Mapping changes have no `updated` history in the dataset; this is the only way to see them. |
+| `scripts/diff_versions.py` | Full-body diff between two versions: ruleset metadata (status, effective dates, applicability), rules, KSIs, definitions, CTL. Classes each change substantive / cosmetic / derived and flags force-keyword and changelog-less (`SILENT`) edits. Mapping changes have no `updated` history in the dataset; this is the only way to see them. |
 | `scripts/mapping_stats.py` | Structural properties of the KSI → SP 800-53 mapping (fan-in, fan-out, coverage). |
 | `scripts/sync_workpaper_data.py` | Regenerate the KSI array embedded in an HTML workpaper tool and stamp the CR26 version. |
 | `reports/` | Generated, dated reports. |
-| `docs/` | Analysis and standing positions, with rule-ID citations. |
+| `docs/` | Analysis and standing positions, with rule-ID citations. Start with `docs/ksi-mapping-analysis.md`. |
 | `tools/` | Public tools (none yet). |
 
 ## Marker discipline
@@ -30,14 +30,12 @@ JSON by script), `[ANALYSIS]` (author position), or `[UNVERIFIED]`. RFCs, notice
 
 ```bash
 python scripts/fetch_cr26.py
-python scripts/mapping_stats.py > reports/mapping-stats.$(date +%F).md
+python scripts/mapping_stats.py --out reports/mapping-stats.$(date +%F).md
 python scripts/diff_versions.py data/cr26/fedramp-consolidated-rules.OLD.json data/cr26/current.json
 ```
 
 ## License
 
 Apache-2.0 for code, CC-BY-4.0 for `docs/` and `reports/`; CR26 data is public domain. See `LICENSE` and `docs/LICENSING.md`.
-
-See [docs/USAGE.md](docs/USAGE.md) for running the scripts, reading a change issue, and the publication boundary.
 
 See [docs/USAGE.md](docs/USAGE.md) for running the scripts, reading a change issue, and the publication boundary.

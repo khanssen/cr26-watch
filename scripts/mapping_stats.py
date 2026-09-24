@@ -1,8 +1,9 @@
 """Structural properties of the KSI -> SP 800-53 mapping for a CR26 version.
-Usage: python scripts/mapping_stats.py [path.json] [--baseline moderate-ids.txt]
+Usage: python scripts/mapping_stats.py [path.json] [--baseline moderate-ids.txt] [--out report.md]
+  --out writes UTF-8 directly (use it on Windows PowerShell 5.1, where `>` writes UTF-16).
 """
 import sys, collections
-from common import load, ksis, norm_ctrl, version
+from common import load, ksis, norm_ctrl, version, utf8_stdout
 
 ALL_FAMS = ["ac","at","au","ca","cm","cp","ia","ir","ma","mp","pe","pl","pm","ps","pt","ra","sa","sc","si","sr"]
 
@@ -10,7 +11,7 @@ def main(argv):
     path = next((a for a in argv if a.endswith(".json")), None)
     base = None
     if "--baseline" in argv:
-        base = {norm_ctrl(l) for l in open(argv[argv.index("--baseline")+1]) if l.strip()}
+        base = {norm_ctrl(l) for l in open(argv[argv.index("--baseline")+1], encoding="utf-8-sig") if l.strip()}
     doc = load(path)
     c2k = collections.defaultdict(list); k2n = {}
     for kid, theme, ind in ksis(doc):
@@ -42,5 +43,17 @@ def main(argv):
     for k, n in sorted(k2n.items(), key=lambda x: -x[1]):
         print(f"- {k}: {n}")
 
+def _run(argv):
+    utf8_stdout()
+    if "--out" in argv:
+        i = argv.index("--out"); out = argv[i + 1]; argv = argv[:i] + argv[i + 2:]
+        with open(out, "w", encoding="utf-8", newline="\n") as f:
+            real, sys.stdout = sys.stdout, f
+            try: main(argv)
+            finally: sys.stdout = real
+        print(f"wrote {out}")
+    else:
+        main(argv)
+
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    _run(sys.argv[1:])

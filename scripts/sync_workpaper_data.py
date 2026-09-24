@@ -4,7 +4,7 @@ Without --write: reports differences. With --write: replaces the array in place
 and stamps a CR26_VERSION constant.
 """
 import sys, re, json
-from common import load, ksis, class_statement, norm_ctrl, version
+from common import load, ksis, class_statement, norm_ctrl, version, utf8_stdout
 
 def build(doc, cls):
     return [{"id": kid, "name": ind["name"], "family": theme,
@@ -15,7 +15,9 @@ def build(doc, cls):
 
 def main(argv):
     path = argv[0]; cls = argv[argv.index("--class")+1] if "--class" in argv else "c"
-    html = open(path).read()
+    utf8_stdout()
+    with open(path, encoding="utf-8", newline="") as f:   # newline="": keep the file's own line endings
+        html = f.read()
     m = re.search(r'\[\{"id":"KSI-.*?\}\](?=\s*[;,\)])', html, re.S)
     if not m: sys.exit("embedded KSI array not found")
     old = json.loads(m.group(0)); doc = load(); new = build(doc, cls)
@@ -32,7 +34,9 @@ def main(argv):
         html = html[:m.start()] + json.dumps(new, separators=(",", ":")) + html[m.end():]
         stamp = f'const CR26_VERSION="{version(doc)}";'
         html = re.sub(r'const CR26_VERSION="[^"]*";', stamp, html) if "CR26_VERSION=" in html else html.replace("<script>", "<script>\n" + stamp, 1)
-        open(path, "w").write(html); print("written")
+        with open(path, "w", encoding="utf-8", newline="") as f:
+            f.write(html)
+        print("written")
 
 if __name__ == "__main__":
     main(sys.argv[1:])

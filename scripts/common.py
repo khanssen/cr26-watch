@@ -1,13 +1,19 @@
 """Shared loaders for the CR26 consolidated rules JSON."""
-import json, re
+import json, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "cr26"
 
+def utf8_stdout():
+    """Windows consoles default to cp1252; the dataset is UTF-8. Call from any script that prints rule text."""
+    for s in (sys.stdout, sys.stderr):
+        try: s.reconfigure(encoding="utf-8")
+        except AttributeError: pass
+
 def load(path=None):
     p = Path(path) if path else DATA / "current.json"
-    with open(p) as f:
+    with open(p, encoding="utf-8") as f:
         return json.load(f)
 
 def version(doc):

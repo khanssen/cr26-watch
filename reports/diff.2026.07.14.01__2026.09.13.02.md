@@ -72,7 +72,7 @@
     - `varies_by_class.d.statement` *(cosmetic)*: Providers with Class D … as much of the [-the-] following additional information that … status for each item:
 
 ## Derived
-- 233 items: `terms` lost only ['Advisor', 'Agency', 'Assessor', 'MAY', 'MUST', 'MUST NOT', 'Provider', 'SHOULD', 'SHOULD NOT'] (definitions newly flagged `ignore_in_terms`). No other field changed on these items.
+- 233 items: `terms` lost only ['Advisor', 'Agency', 'Assessor', 'Provider'] (definitions now flagged `ignore_in_terms`). No other field changed on these items.
 
 ---
 *FORCE* = normative keyword or `force` changed. *SILENT* = body changed, `updated` log did not.

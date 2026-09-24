@@ -169,8 +169,9 @@ def diff(old, new):
     block("Substantive", subst)
     block("Cosmetic (normalized text identical)", cos)
     if derived:
-        L += [f"## Derived", f"- {len(derived)} items: `terms` lost only {sorted(ign)} "
-              f"(definitions newly flagged `ignore_in_terms`). No other field changed on these items.", ""]
+        gone = sorted({t for c in derived for t in set(oi[c["key"]][0].get("terms", [])) - set(ni[c["key"]][0].get("terms", []))})
+        L += [f"## Derived", f"- {len(derived)} items: `terms` lost only {gone} "
+              f"(definitions now flagged `ignore_in_terms`). No other field changed on these items.", ""]
     if not (changes or added or removed): L.append("No differences.")
     L += ["---", "*FORCE* = normative keyword or `force` changed. *SILENT* = body changed, `updated` log did not."]
     return "\n".join(L) + "\n", summary

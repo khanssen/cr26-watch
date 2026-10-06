@@ -1,3 +1,27 @@
+name: Watch FedRAMP/rules for CR26 changes
+# Security note: step outputs are derived from upstream data. They are passed to shell only
+# through env: (never ${{ }} inside run:), and check_upstream.py rejects any version string
+# that is not YYYY.MM.DD.NN[.sha8] before it can reach a ref, commit message, or output.
+
+concurrency:
+  group: cr26-watch-main
+  cancel-in-progress: false
+on:
+  schedule:
+    - cron: "17 11 * * *"     # daily, 11:17 UTC (~07:17 ET)
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - id: chk
+        run: python scripts/check_upstream.py
       - name: Commit snapshot and reports
         if: steps.chk.outputs.changed == 'true'
         env: { NOTE: "${{ steps.chk.outputs.note }}" }
@@ -12,3 +36,42 @@
           done
           echo "::error::could not push to main after 3 attempts"
           exit 1
+      - id: post
+        name: Push draft post branch
+        if: steps.chk.outputs.changed == 'true' && steps.chk.outputs.post != ''
+        env: { NAME: "${{ steps.chk.outputs.name }}" }
+        run: |
+          b="post/$NAME"
+          git switch -c "$b"
+          git add posts
+          git commit -m "Post: CR26 $NAME"
+          git push -u origin "$b"
+          echo "url=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/compare/main...${b}?expand=1" >> "$GITHUB_OUTPUT"
+      - name: Ensure labels exist
+        if: steps.chk.outputs.changed == 'true'
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          gh label create cr26-change          --color 1d76db --description "Upstream CR26 dataset changed" --force
+          gh label create cr26-mapping         --color b60205 --description "KSI -> 800-53 controls arrays changed" --force
+          gh label create cr26-baseline        --color 0e8a16 --description "Rev5 baseline (FRC-CSF-BSL) or CTL parameters/guidance changed; drives oscal-fedramp-cr26" --force
+          gh label create cr26-ruleset         --color d93f0b --description "Ruleset metadata changed (status, effective dates, applicability)" --force
+          gh label create cr26-force           --color fbca04 --description "Normative keyword or force changed" --force
+          gh label create cr26-no-version-bump --color 5319e7 --description "Content changed without a version bump" --force
+      - name: Open issue, assigned to the repo owner
+        if: steps.chk.outputs.changed == 'true' && steps.chk.outputs.report != ''
+        env:
+          GH_TOKEN: "${{ github.token }}"
+          NOTE: "${{ steps.chk.outputs.note }}"
+          REPORT: "${{ steps.chk.outputs.report }}"
+          LABELS: "${{ steps.chk.outputs.labels }}"
+          POST_URL: "${{ steps.post.outputs.url }}"
+        run: |
+          {
+            if [ -n "$POST_URL" ]; then
+              echo "> **Draft post:** [open a pull request]($POST_URL). Add analysis under \`## Analysis\` if you want, then merge to publish."
+              echo
+            fi
+            cat "$REPORT"
+          } > /tmp/issue.md
+          gh issue create --title "CR26: $NOTE" --body-file /tmp/issue.md \
+            --label "$LABELS" --assignee "$GITHUB_REPOSITORY_OWNER"

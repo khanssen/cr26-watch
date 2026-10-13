@@ -1,0 +1,164 @@
+> new version 2026.10.13.01: 76 substantive, 40 MAPPING, 1 silent
+
+# CR26 diff 2026.10.08.01 -> 2026.10.13.01
+
+| added | removed | substantive | ruleset/info | mapping | baseline | force-bearing | silent | cosmetic | derived |
+|---|---|---|---|---|---|---|---|---|---|
+| 0 | 0 | 76 | 0 | 40 | 0 | 0 | 1 | 0 | 0 |
+
+## Substantive
+- FRR:AFC-CSO-INB
+    - `controls`: null → ["si-5"]
+- FRR:AGU-USE-RSG
+    - `controls`: null → ["cm-10", "cm-5", "cm-6", "ia-11"]
+- FRR:CCM-OCR-AVL
+    - `controls`: null → ["ca-7"]
+- FRR:CCM-QTR-ACT
+    - `controls`: null → ["ca-7"]
+- FRR:CCM-QTR-MTG
+    - `controls`: null → ["ca-7"]
+- FRR:CMU-CSO-CMD
+    - `controls`: null → ["au-9.3", "cm-3.6", "ia-7", "sc-28.1", "sc-8.1"]
+- FRR:CMU-CSO-UVM
+    - `controls`: null → ["ac-18", "au-9.3", "ia-7", "sc-28.1", "sc-8.1"]
+- FRR:CPO-CSO-OSA
+    - `controls`: null → ["ca-2", "ca-2.1", "ca-2.2", "ca-7.1"]
+- FRR:FRC-CSX-VVK
+    - `controls`: null → ["cm-2.2", "si-6"]
+- FRR:FRC-CSX-VVR
+    - `controls`: null → ["si-6"]
+- FRR:IEC-CSO-EFR
+    - `controls`: null → ["au-5.2", "ir-4.11"]
+- FRR:IEC-CSO-FIR
+    - `controls`: null → ["ir-5"]
+- FRR:IEC-CSO-IIR
+    - `controls`: null → ["au-5.2", "ir-5"]
+- FRR:IEC-CSO-OIR
+    - `controls`: null → ["ir-5"]
+- FRR:IVV-CSO-FIA
+    - `controls`: null → ["ca-2", "ca-2.1", "ca-2.2", "ca-7.1", "ca-7.4"]
+- FRR:IVV-IAS-VEF **SILENT**
+    - `controls`: null → []
+- FRR:MAS-CSO-FLO
+    - `controls`: null → ["ac-4", "cm-12", "cm-12.1", "ra-3", "si-4.19"]
+- FRR:MAS-CSO-IIR
+    - `controls`: null → ["cm-8.4", "ra-3", "si-4.19"]
+- FRR:MAS-CSO-TPR
+    - `controls`: null → ["ra-3"]
+- FRR:SCG-CSO-RSC
+    - `controls`: null → ["cm-7"]
+- FRR:SCN-CSO-EMG
+    - `controls`: null → ["ir-4.2"]
+- FRR:SCN-CSO-EVA
+    - `controls`: null → ["cm-4"]
+- FRR:VDR-CSO-ADT
+    - `controls`: null → ["ra-5", "si-2.2", "si-3", "si-4.2", "si-4.5"]
+- FRR:VDR-CSO-AKE
+    - `controls`: null → ["ra-5", "si-5"]
+- FRR:VDR-CSO-DAC
+    - `controls`: null → ["ra-5"]
+- FRR:VDR-CSO-DET
+    - `controls`: null → ["au-5.2", "au-6", "ca-8", "ca-8.1", "ca-8.2", "ra-5", "ra-5.2", "ra-5.3", "ra-5.4", "si-2", "si-3", "si-4.1", "si-4.12", "si-4.18", "si-4.22", "si-5.1"]
+- FRR:VDR-CSO-FAV
+    - `controls`: null → ["au-5.2", "si-4", "si-4.1", "si-7.7"]
+- FRR:VDR-CSO-MSP
+    - `controls`: null → ["ra-5.5", "si-2"]
+- FRR:VDR-CSO-RES
+    - `controls`: null → ["au-5.2", "ir-4.11", "ir-9.3", "ra-7", "si-2", "si-3"]
+- FRR:VDR-CSO-SIR
+    - `controls`: null → ["ra-5.3", "ra-5.5"]
+- FRR:VDR-TFR-PDD
+    - `controls`: null → ["si-4.22", "si-7", "si-7.1"]
+- FRR:VDR-TFR-PVR
+    - `controls`: null → ["si-2.3"]
+- FRR:VER-EVA-EFA
+    - `controls`: null → ["ra-9"]
+- FRR:VER-EVA-EPA
+    - `controls`: null → ["ra-3"]
+- FRR:VER-RPT-PER
+    - `controls`: null → ["si-7.2"]
+- FRR:VER-RPT-VDT
+    - `controls`: null → ["si-2.3"]
+- KSI:KSI-CED-RAT
+    - `controls`: +['cm-11', 'cp-3.1', 'ir-2.1', 'ir-2.2', 'ir-9.2', 'ir-9.4', 'pl-4', 'pl-4.1'] -[]
+- KSI:KSI-CMT-LMC
+    - `controls`: +['ca-7.4', 'cm-3.1', 'cm-3.6'] -['ma-2']
+- KSI:KSI-CMT-VTD
+    - `controls`: +['cm-6.2', 'ir-9.4'] -[]
+- KSI:KSI-CNA-DFP
+    - `controls`: +['cm-8.4', 'cp-10.4', 'ir-9.4'] -[]
+- KSI:KSI-CNA-EIS
+    - `controls`: +['cm-11', 'cm-6.2', 'cp-10.4', 'ir-9.4', 'sc-24', 'sc-7.18', 'si-4.22', 'si-7', 'si-7.1', 'si-7.5', 'si-7.7'] -['ca-7.1']
+- KSI:KSI-CNA-IBP
+    - `controls`: +['sc-7.18'] -[]
+- KSI:KSI-CNA-MAT
+    - `controls`: +['sc-7.18'] -[]
+- KSI:KSI-CNA-OFA
+    - `controls`: +['cp-2.5', 'sc-12.1'] -[]
+- KSI:KSI-CNA-RNT
+    - `controls`: +['sc-7.10', 'sc-7.18', 'sc-7.20', 'sc-7.21', 'si-10', 'si-4.11', 'si-4.18', 'si-4.4'] -[]
+- KSI:KSI-CNA-RVP
+    - `controls`: +['ir-4.2', 'sc-7.18'] -[]
+- KSI:KSI-CNA-ULN
+    - `controls`: +['ac-4.21', 'cm-11', 'sc-7.20', 'sc-7.21'] -[]
+- KSI:KSI-IAM-AAM
+    - `controls`: +['ia-8.4'] -[]
+- KSI:KSI-IAM-APM
+    - `controls`: +['ia-2.6', 'ia-5.8', 'ia-8.2', 'ia-8.4'] -[]
+- KSI:KSI-IAM-ELP
+    - `controls`: +['ac-18.4', 'ac-2.11', 'ac-2.7', 'ac-2.9', 'ac-21', 'ac-6.3', 'ac-6.8', 'au-12.3', 'au-6.7', 'cm-5.1', 'cm-5.5', 'cm-7.2', 'ir-4.6', 'ir-9.4', 'ra-5.5', 'sc-2', 'sc-3', 'si-4.19'] -[]
+- KSI:KSI-IAM-JIT
+    - `controls`: +['ac-17.4', 'ac-2.11', 'ac-2.7', 'ac-21', 'ac-6.3', 'ac-6.8', 'au-10', 'au-12.3', 'ca-3.6', 'cm-5.1', 'cm-5.5', 'ir-4.6', 'sc-3'] -[]
+- KSI:KSI-IAM-SNU
+    - `controls`: +['ac-2.9', 'au-10', 'ia-2.5'] -[]
+- KSI:KSI-IAM-SUS
+    - `controls`: +['ac-2.11', 'ac-2.12', 'au-6.5', 'cm-5.1', 'cm-6.2', 'ir-4.2', 'ir-4.6', 'si-4', 'si-4.1', 'si-4.19', 'si-4.20', 'si-4.22', 'si-4.4'] -[]
+- KSI:KSI-INR-AAR
+    - `controls`: +['ir-5.1', 'ir-9.3'] -[]
+- KSI:KSI-INR-RIR
+    - `controls`: +['ir-4.11', 'ir-9.3'] -[]
+- KSI:KSI-INR-RPI
+    - `controls`: +['ir-4.11', 'ir-4.4', 'ir-5.1', 'ra-5.8'] -[]
+- KSI:KSI-MLA-ALA
+    - `controls`: +['au-12.3', 'au-6.7'] -[]
+- KSI:KSI-MLA-EVC
+    - `controls`: +['ac-19', 'cm-6.1', 'ra-3'] -[]
+- KSI:KSI-MLA-LET
+    - `controls`: +['au-10', 'au-7', 'cm-5.1', 'ir-9.4', 'si-4.19', 'si-4.20'] -[]
+- KSI:KSI-MLA-OSM
+    - `controls`: +['au-12.1', 'au-5.1', 'au-6.4', 'au-6.5', 'si-4.16'] -['si-7.7']
+- KSI:KSI-MLA-RVL
+    - `controls`: +['au-7', 'ra-5.8', 'si-4.19'] -[]
+- KSI:KSI-PIY-GIV
+    - `controls`: +['cm-8.2', 'cm-8.4'] -[]
+- KSI:KSI-PIY-RIS
+    - `controls`: +['ca-2.2', 'ir-4.11'] -[]
+- KSI:KSI-PIY-RSD
+    - `controls`: +['ia-5.7', 'ra-9'] -[]
+- KSI:KSI-RPL-ABO
+    - `controls`: +[] -['si-12']
+- KSI:KSI-RPL-TRC
+    - `controls`: +['ir-9.3', 'sc-12.1'] -[]
+- KSI:KSI-SCR-MIT
+    - `controls`: +['ac-19', 'ra-3', 'sa-11.1', 'sa-11.2', 'sa-15', 'sa-16', 'sa-17', 'sa-21', 'sa-4', 'sa-4.1', 'sa-4.2', 'sa-4.5', 'sa-4.9', 'sa-9.1', 'sa-9.2', 'sa-9.5', 'si-7.15', 'sr-2', 'sr-3'] -[]
+- KSI:KSI-SCR-MON
+    - `controls`: +['ac-19', 'ca-2.3', 'ra-3', 'sr-3'] -[]
+- KSI:KSI-SVC-ACM
+    - `controls`: +['ac-6.8', 'sc-45', 'sc-45.1', 'sc-7.18'] -[]
+- KSI:KSI-SVC-ASM
+    - `controls`: +['sc-12.1'] -[]
+- KSI:KSI-SVC-EIS
+    - `controls`: +['ca-7.4', 'cm-5.5', 'ir-9.4', 'ra-3'] -['ma-2']
+- KSI:KSI-SVC-PRR
+    - `controls`: +['ac-19', 'ir-9.4', 'sc-12.1', 'sc-7.18'] -[]
+- KSI:KSI-SVC-RUD
+    - `controls`: +['ir-9', 'si-8', 'si-8.2'] -[]
+- KSI:KSI-SVC-SIN
+    - `controls`: +['ac-11', 'ac-11.1', 'ac-19.5', 'ac-21', 'ir-9.4', 'sc-4', 'sc-7.18', 'si-4.18'] -['ac-1']
+- KSI:KSI-SVC-VCM
+    - `controls`: +['ac-10', 'ac-17.4', 'ac-18', 'ac-19', 'si-4.22'] -[]
+- KSI:KSI-SVC-VRI
+    - `controls`: +['ac-17.4', 'ac-18', 'ac-19', 'au-9.3', 'cm-14', 'si-7.15', 'sr-11'] -[]
+
+---
+*FORCE* = normative keyword or `force` changed. *SILENT* = body changed, `updated` log did not.

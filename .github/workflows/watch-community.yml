@@ -1,0 +1,65 @@
+name: Digest FedRAMP/community discussions
+# One issue a day with every active thread shown whole (question + all replies, new posts
+# marked), instead of one email per comment with no question attached.
+# Security note: discussion text never touches a shell. community_digest.py writes it to files
+# and gh reads them with --body-file. The issue title is built from counts only.
+
+concurrency:
+  group: cr26-watch-main      # shares main with the other watchers; they take turns
+  cancel-in-progress: false
+on:
+  schedule:
+    - cron: "37 11 * * *"     # daily, 11:37 UTC (~07:37 ET), after the CR26 watcher
+  workflow_dispatch:
+    inputs:
+      since:
+        description: "Optional YYYY-MM-DD: re-digest everything since this date (ignores saved state)"
+        required: false
+permissions:
+  contents: write
+  issues: write
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with: { ref: main }
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - id: dig
+        name: Build digest
+        env:
+          # GraphQL needs a token even for public data. The workflow token normally suffices;
+          # add a repo secret COMMUNITY_TOKEN (fine-grained, public read-only) if it is refused.
+          GH_TOKEN: "${{ secrets.COMMUNITY_TOKEN || github.token }}"
+          SINCE: "${{ inputs.since }}"
+        run: |
+          if [ -n "$SINCE" ]; then python scripts/community_digest.py --since "$SINCE"
+          else python scripts/community_digest.py; fi
+      - name: Open digest issue(s), assigned to the repo owner
+        if: steps.dig.outputs.changed == 'true'
+        env:
+          GH_TOKEN: "${{ github.token }}"
+          TITLE: "${{ steps.dig.outputs.title }}"
+          PARTS: "${{ steps.dig.outputs.parts }}"
+          DIR: "${{ steps.dig.outputs.dir }}"
+        run: |
+          gh label create community-digest --color 0075ca --description "Daily FedRAMP/community discussion digest" --force
+          for i in $(seq 1 "$PARTS"); do
+            t="$TITLE"; [ "$PARTS" -gt 1 ] && t="$TITLE (part $i/$PARTS)"
+            gh issue create --title "$t" --body-file "$DIR/part-$i.md" \
+              --label community-digest --assignee "$GITHUB_REPOSITORY_OWNER"
+          done
+      - name: Commit state (IDs and timestamps only)
+        run: |
+          git config user.name "community-watch"
+          git config user.email "community-watch@users.noreply.github.com"
+          git add data/community/state.json
+          git diff --cached --quiet && { echo "No state change."; exit 0; }
+          git commit -m "community digest state $(date -u +%F)"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 5))
+          done
+          echo "::error::could not push to main after 3 attempts"
+          exit 1

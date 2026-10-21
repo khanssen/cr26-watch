@@ -17,12 +17,13 @@ Values derived from upstream data (version strings, notes, labels, paths) reach 
 
 ## 1. What runs on its own
 
-Two GitHub Actions run without you:
+Three GitHub Actions run without you:
 
 | Workflow | Schedule | What it does |
 |---|---|---|
 | Watch FedRAMP/rules for CR26 changes | daily, 11:17 UTC | Fetches the upstream dataset and compares **bytes** against `data/cr26/current.json`. On any difference it stores the snapshot (`<version>.json`, or `<version>.<sha8>.json` if the version string did not change), writes `reports/diff.<old>__<new>.md` and `reports/mapping-stats.<new>.md`, and opens an issue with the diff as the body. |
 | Watch marketplace-fedramp-gov-data | weekly, Monday | Commits a dated snapshot of the Marketplace data under `data/marketplace/<date>/`. Nothing is analyzed; this is raw longitudinal capture. |
+| Digest FedRAMP/community discussions | daily, 11:37 UTC | Opens one `community-digest` issue covering every discussion thread with new or edited posts. See §1a. |
 
 Both can be run on demand: Actions tab → pick the workflow → Run workflow.
 
@@ -35,6 +36,19 @@ A third workflow, **Self-test the CR26 watcher**, is manual only (Actions → Se
 | `no-bump` | Same edits under the same version string: exercises content-changed-without-version-bump |
 
 Run it after any change to the scripts, and once to confirm you actually get notified. Filter test issues out of real ones with `-label:cr26-selftest`.
+
+## 1a. Community digest
+
+GitHub's per-comment emails arrive without the question. The digest issue shows each active thread whole: the question, then every comment and reply in order. **[NEW]** and **[EDITED]** mark what changed since the last run; unchanged earlier posts are folded under *earlier post(s)*. The marked answer shows as ✅. Posts by members of the FedRAMP GitHub org carry a **FedRAMP** tag. That is org membership, not a statement of authority.
+
+Any post that links `fedramp.gov/rfcs`, `/notices/` or `/legacy/`, or cites an RFC, NTC or BIR number, gets a ⚠️ *superseded source* line. Discussion answers are not rules; reconcile against CR26 before relying on one.
+
+- First run digests the last 14 days. After that, `data/community/state.json` (post IDs and timestamps, no text) prevents repeats.
+- To re-digest a window: Actions → Digest FedRAMP/community discussions → Run workflow → `since` = YYYY-MM-DD.
+- If a day's activity exceeds GitHub's issue-size limit, it splits into `(part i/n)` issues.
+- Re-posted text is defused: @mentions and `#123` refs are broken with a zero-width space, and github.com links go through `redirect.github.com`, so the digest pings nobody and leaves no backreference on FedRAMP's threads.
+- If the workflow token is refused by GraphQL, add a repo secret `COMMUNITY_TOKEN` (fine-grained token, public repositories read-only).
+- To stop the per-comment emails, unsubscribe on the threads (or set FedRAMP/community to *Participating and @mentions*) and rely on the digest. Filter with `label:community-digest`.
 
 ## 2. When a `cr26-change` issue lands
 

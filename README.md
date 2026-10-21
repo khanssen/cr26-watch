@@ -16,6 +16,7 @@ This repository stores versioned snapshots under `data/cr26/` and never modifies
 | `scripts/diff_versions.py` | Full-body diff between two versions: ruleset metadata (status, effective dates, applicability), rules, KSIs, definitions, CTL. Classes each change substantive / cosmetic / derived and flags force-keyword and changelog-less (`SILENT`) edits. Mapping changes have no `updated` history in the dataset; this is the only way to see them. |
 | `scripts/mapping_stats.py` | Structural properties of the KSI → SP 800-53 mapping (fan-in, fan-out, coverage). |
 | `scripts/sync_workpaper_data.py` | Regenerate the KSI array embedded in an HTML workpaper tool and stamp the CR26 version. |
+| `scripts/community_digest.py` | Daily digest of FedRAMP/community discussions: each active thread shown whole, new posts marked, FedRAMP-org answers labeled, RFC/notice/legacy citations flagged. Opens one `community-digest` issue. State holds IDs only. |
 | `reports/` | Generated, dated reports. |
 | `posts/` | Public, facts-only change posts (one per release), published as GitHub Releases on merge. Analysis sections are the author's. |
 | `scripts/make_post.py` | Generates a change post; never writes the Analysis section. |

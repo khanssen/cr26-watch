@@ -3,12 +3,22 @@ on:
   schedule:
     - cron: "47 11 * * 1"     # weekly, Monday
   workflow_dispatch:
+  repository_dispatch:       # start a run via the API with push access:
+    types: [marketplace-refresh]   # POST /repos/khanssen/cr26-watch/dispatches
 permissions: { contents: write }
+# Same group as watch-cr26.yml: both push to main, so they run one at a time.
+concurrency:
+  group: cr26-watch-main
+  cancel-in-progress: false
 jobs:
   snapshot:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          # Build on main as it is now, not the commit that triggered the run.
+          # A re-run otherwise checks out the original (stale) commit and its push is rejected.
+          ref: main
       - name: Pull marketplace data tarball
         run: |
           mkdir -p data/marketplace
@@ -26,4 +36,12 @@ jobs:
         run: |
           git config user.name "mkt-watch"; git config user.email "mkt-watch@users.noreply.github.com"
           git add data/marketplace
-          git diff --cached --quiet || (git commit -m "marketplace snapshot $(date -u +%F)" && git push)
+          git diff --cached --quiet && { echo "No change."; exit 0; }
+          git commit -m "marketplace snapshot $(date -u +%F)"
+          # main may have moved since checkout; rebase onto it and retry rather than fail.
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin main && git push origin HEAD:main && exit 0
+            sleep $((i * 5))
+          done
+          echo "::error::could not push to main after 3 attempts"
+          exit 1

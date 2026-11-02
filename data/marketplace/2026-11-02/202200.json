@@ -1,0 +1,17 @@
+{
+  "assessorName": "CyberQRT",
+  "logo": "https://www.fedramp.gov/assets/img/logos/3PAO_logos/CyberQRT%20Logo.png",
+  "a2laId": "202200",
+  "a2laAccreditationDate": "2023-10-26",
+  "serviceDescription": "Independent assessment organization providing FedRAMP assessment services.",
+  "contactInformation": [
+    "dmendes@cyberqrt.com"
+  ],
+  "servicesOffered": [
+    {
+      "serviceName": "FedRAMP assessment"
+    }
+  ],
+  "foundedDate": "2016-01-01",
+  "fedramp_recognized_timestamp": "2026-02-27T00:00:00Z"
+}

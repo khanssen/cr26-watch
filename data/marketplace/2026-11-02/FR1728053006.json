@@ -1,0 +1,51 @@
+{
+  "$schema": "https://fedramp.gov/schemas/fedramp-certification-package-overview-schema-2026-06-24.json",
+  "serviceIdentification": {
+    "fedRampPackageId": "FR1728053006",
+    "providerName": "IBM",
+    "serviceName": "IBM Automation Services for Government",
+    "serviceAcronym": "IAS4G",
+    "serviceDescription": "IBM® Automation Services for Government (IAS4G) is delivered as a Software-as-a-Service (SaaS) offering operating within a secure, multi-tenant cloud computing environment authorized under the Federal Risk and Authorization Management Program (FedRAMP). IAS4G provides a portfolio of automation products that deliver enterprise-grade asset management and real estate solutions designed specifically for U.S. Federal agencies. The environment is architected to meet the FedRAMP Moderate baseline, ensuring that federal data is managed, processed, and protected in accordance with the FedRAMP defined NIST SP 800-53 Rev. 5 security control requirements. IAS4G leverages the underlying security controls, policies, and inherited protections from other IBM FedRAMP service offerings including IBM Cloud for Government or IBM Platform Services for Government hosted on AWS GovCloud.\n\n## Service Offering Components\n\nThe IAS4G offering consists of multiple components integrated within the single FedRAMP authorization boundary:\n\n### IBM® Maximo Application Suite (MAS) as a Service for Government\n\nIBM® Maximo Application Suite (MAS) as a Service for Government is an intelligent Enterprise Asset Management (EAM) platform that enables predictive maintenance, operational insight, and optimization of asset performance across complex enterprise environments. Delivered as a FedRAMP-authorized SaaS offering, MAS as a Service leverages advanced analytics and IoT capabilities to optimize equipment performance, extend asset lifecycles and reduce operational downtime and costs.\n\n> **Note:** MAS Manage is the strategic direction for the existing Maximo EAM and Maximo Real Estate and Facilities (MREF) is the strategic direction for the existing TRIRIGA solution.\n\nFor additional product information, refer to: https://www.ibm.com/products/maximo\n\n### IBM® Enterprise Asset Management on Cloud for U.S. Federal (Maximo®)\n\nIBM® Enterprise Asset Management on Cloud for U.S. Federal (Maximo®) is a comprehensive asset management solution for managing physical assets within a unified platform. The service enables agencies to monitor asset health, plan maintenance activities, and optimize operational performance through real-time analytics and IoT integrations. Maximo supports federal mission operations by centralizing asset data across facilities, infrastructure, and field environments, helping agencies improve resource allocation and reduce operational costs. It is highly configurable to meet agency-specific requirements without code modifications and is seamlessly integrated with both on-premises and cloud-based systems.\n\nFor additional product information, refer to: https://www.ibm.com/products/maximo/asset-management\n\n### IBM® Facilities and Real Estate Management on Cloud for U.S. Federal (TRIRIGA®)\n\nIBM® Facilities and Real Estate Management on Cloud for U.S. Federal (TRIRIGA®) enables agencies to enhance visibility, control, and automation of real estate portfolios, facility operations, capital projects, and energy management programs. TRIRIGA supports data-driven decision-making by providing role-based workspaces, configurable process automation, and integration with IoT and analytics data sources. Through TRIRIGA, federal users can visualize and virtualize facilities, optimize space utilization, and drive operational efficiency while maintaining compliance with applicable federal sustainability and energy mandates.\n\nFor additional product information, refer to: https://www.ibm.com/products/tririga",
+    "certificationType": "Rev5",
+    "website": "https://www.ibm.com/products/maximo",
+    "logo": "https://www.fedramp.gov/assets/img/logos/CSP_logos/IBM%20Logo.png"
+  },
+  "serviceProperties": {
+    "serviceType": [
+      "SaaS"
+    ],
+    "deploymentModel": "Government Community Cloud",
+    "businessCategory": [
+      "Analytics",
+      "Operations Management",
+      "Data Management",
+      "Governance, Risk, and Compliance (GRC)"
+    ]
+  },
+  "contactInformation": [
+    {
+      "contactType": "Security",
+      "contactEmail": "SaaS-4Gov-SecurityAdmin@wwpdl.vnet.ibm.com"
+    },
+    {
+      "contactType": "Sales",
+      "contactEmail": "SaaS-4Gov-Sales@wwpdl.vnet.ibm.com"
+    }
+  ],
+  "certifiedServices": [
+    {
+      "serviceName": "IBM® Maximo Application Suite (MAS) as a Service for Government",
+      "serviceDescription": "IBM® Maximo Application Suite (MAS) as a Service for Government is an intelligent Enterprise Asset Management (EAM) platform that enables predictive maintenance, operational insight, and optimization of asset performance across complex enterprise environments. Delivered as a FedRAMP-authorized SaaS offering, MAS as a Service leverages advanced analytics and IoT capabilities to optimize equipment performance, extend asset lifecycles and reduce operational downtime and costs.\n\n> **Note:** MAS Manage is the strategic direction for the existing Maximo EAM and Maximo Real Estate and Facilities (MREF) is the strategic direction for the existing TRIRIGA solution.\n\nFor additional product information, refer to: https://www.ibm.com/products/maximo"
+    },
+    {
+      "serviceName": "IBM® Enterprise Asset Management on Cloud for U.S. Federal (Maximo®)",
+      "serviceDescription": "IBM® Enterprise Asset Management on Cloud for U.S. Federal (Maximo®) is a comprehensive asset management solution for managing physical assets within a unified platform. The service enables agencies to monitor asset health, plan maintenance activities, and optimize operational performance through real-time analytics and IoT integrations. Maximo supports federal mission operations by centralizing asset data across facilities, infrastructure, and field environments, helping agencies improve resource allocation and reduce operational costs. It is highly configurable to meet agency-specific requirements without code modifications and is seamlessly integrated with both on-premises and cloud-based systems.\n\nFor additional product information, refer to: https://www.ibm.com/products/maximo/asset-management"
+    },
+    {
+      "serviceName": "IBM® Facilities and Real Estate Management on Cloud for U.S. Federal (TRIRIGA®)",
+      "serviceDescription": "IBM® Facilities and Real Estate Management on Cloud for U.S. Federal (TRIRIGA®) enables agencies to enhance visibility, control, and automation of real estate portfolios, facility operations, capital projects, and energy management programs. TRIRIGA supports data-driven decision-making by providing role-based workspaces, configurable process automation, and integration with IoT and analytics data sources. Through TRIRIGA, federal users can visualize and virtualize facilities, optimize space utilization, and drive operational efficiency while maintaining compliance with applicable federal sustainability and energy mandates.\n\nFor additional product information, refer to: https://www.ibm.com/products/tririga"
+    }
+  ],
+  "ZD_frid_retro": "FR1728053006",
+  "id_matches_expected": true
+}

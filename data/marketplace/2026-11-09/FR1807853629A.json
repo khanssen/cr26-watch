@@ -1,0 +1,218 @@
+{
+  "serviceIdentification": {
+    "fedRampPackageId": "FR1807853629A",
+    "providerName": "CrowdStrike, Inc.",
+    "serviceName": "CrowdStrike Falcon Platform for Government",
+    "serviceAcronym": "CrowdStrike Falcon Platform for Government",
+    "serviceDescription": "The primary purpose of the CrowdStrike Falcon Platform is to provide organizations with a comprehensive cybersecurity solution that encompasses the following system functions:\r\n\r\n \r\n\r\nEndpoint Security - Advanced endpoint security capabilities to protect laptops, desktops, servers, and virtual machines from various cyber threats.\r\n\r\nThreat Intelligence - Cloud-based intelligence engine to collect and analyze threat data from millions of endpoints worldwide.\r\n\r\nManaged Security - Managed security services with a team of security experts actively monitoring and responding to security events.\r\n\r\nCloud Security - Cloud security capabilities to protect organizations' cloud environments.\r\n\r\nSecurity and IT Operations - Integration of security and IT operations for a unified view of security posture.\r\n\r\nIdentity Protection - Identity protection capabilities to safeguard user identities and prevent unauthorized access.\r\n\r\nNext-Gen SIEM - Logging and analysis capabilities to collect, correlate, and analyze security events and logs.\r\n\r\nCharlotte AI - Delivers automated triage analysis for endpoint, identity and cloud detections and enables security teams to activate LLM inferencing within Falcon Fusion SOAR workflows.",
+    "certificationType": "Rev5",
+    "website": "https://www.crowdstrike.com/solutions/falcon-on-govcloud/",
+    "logo": "https://www.fedramp.gov/assets/img/logos/CSP_logos/CrowdStrike%20Logo.png",
+    "ueiNumber": "JXV5KPM56S34"
+  },
+  "serviceProperties": {
+    "serviceType": [
+      "SaaS"
+    ],
+    "deploymentModel": "Public Cloud",
+    "businessCategory": [
+      "Analytics",
+      "Cybersecurity & Risk Management"
+    ]
+  },
+  "contactInformation": [
+    {
+      "contactType": "Security",
+      "contactEmail": "fedramp@crowdstrike.com"
+    },
+    {
+      "contactType": "Sales",
+      "contactEmail": "sales@crowdstrike.com"
+    }
+  ],
+  "assessor": {
+    "name": "Schellman Compliance, LLC",
+    "assessorID": "136571"
+  },
+  "thirdPartyInformationResources": {
+    "certified": [
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2607452240",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2524349489",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2528033654",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2218073444",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2230451369",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2108649352",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2525556241XM",
+        "useCase": ""
+      }
+    ]
+  },
+  "certifiedServices": [
+    {
+      "serviceName": "Charlotte AI",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Counter Adversary Elite",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Counter Adversary Operations",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Discover IoT / Insight IoT",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Adversary Intelligence",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Adversary Intelligence Premium",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Adversary OverWatch",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Cloud Security",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Cloud Security for Containers",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Cloud Security for Managed Containers",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Complete",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Data Protection",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Device Control",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Discover",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon External Attack Surface Management",
+      "serviceDescription": "",
+      "dateAvailable": "2026-03-18"
+    },
+    {
+      "serviceName": "Falcon FileVantage",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Firewall Management",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon For IT",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Forensics",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Foundry",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Fusion",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Identity Protection",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Insight XDR",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Next-Gen SIEM",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Prevent",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon SIEM Connector",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon Sandbox",
+      "serviceDescription": "",
+      "dateAvailable": "2026-03-18"
+    },
+    {
+      "serviceName": "Falcon Spotlight",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    },
+    {
+      "serviceName": "Falcon for Mobile",
+      "serviceDescription": "",
+      "dateAvailable": "2025-03-12"
+    }
+  ],
+  "ZD_frid_retro": "FR1807853629A",
+  "id_matches_expected": true
+}

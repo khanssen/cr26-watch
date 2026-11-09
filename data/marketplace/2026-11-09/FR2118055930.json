@@ -1,0 +1,222 @@
+{
+  "serviceIdentification": {
+    "fedRampPackageId": "FR2118055930",
+    "providerName": "Motorola Solutions",
+    "serviceName": "Motorola Solutions Federal Cloud (MSFC)",
+    "serviceAcronym": "Motorola Solutions Federal Cloud (MSFC)",
+    "serviceDescription": "Motorola Solutions is expanding its “Mission Critical Ecosystem” which consists of a suite of software and technology that supports mission critical communications in evolving ways and that provides fast access to actionable information. The purpose of the Motorola Solutions Federal Cloud (MSFC) is to serve as the platform upon which the applications and solutions that are part of this Mission Critical Ecosystem will securely operate to provide our U.S. Federal Government users with enhanced capabilities. Primary to our Federal Cloud offering as our initial secure cloud application is the APX NEXT smart radio, a next-generation P25 platform purpose-built for first responders to access and act on information while maintaining focus in critical situations. The Motorola Solutions Federal Cloud enables APX NEXT and additional SaaS services to provide new Common Operating Picture (COP) capabilities to federal Law Enforcement Officers (LEOs), first responders and public safety personnel in the field with a new ownership experience to operations and support personnel. The underlying Motorola Solutions Federal Cloud architecture is reinforced by a modern and comprehensive application of security technology. Once deployed, our cloud services production systems are monitored 24x7x365 by Motorola Solutions’ Security Operations Center using state-of-the-art Security Information and Event Management (SIEM) technology.",
+    "certificationType": "Rev5",
+    "website": "https://discover.motorolasolutions.com/fedramp-marketplace",
+    "logo": "https://www.fedramp.gov/assets/img/logos/CSP_logos/Motorola%20Logo.png",
+    "ueiNumber": "HFK9V1G2B513"
+  },
+  "serviceProperties": {
+    "serviceType": [
+      "SaaS"
+    ],
+    "deploymentModel": "Government Community Cloud",
+    "businessCategory": [
+      "Communication",
+      "Cybersecurity & Risk Management",
+      "Law Enforcement"
+    ]
+  },
+  "contactInformation": [
+    {
+      "contactType": "Security",
+      "contactEmail": "managed-security@motorolasolutions.com"
+    },
+    {
+      "contactType": "Sales",
+      "contactEmail": "msifedsales@motorolasolutions.com"
+    }
+  ],
+  "assessor": {
+    "name": "Kratos",
+    "assessorID": "137255"
+  },
+  "certifiedServices": [
+    {
+      "serviceName": "APX 1000i",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX 5000",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX 6000",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX 8000",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX 8000H",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX 900",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX N30",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX N50",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX N70",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX NEXT",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX NEXT International",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX NEXT Smart Radio",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX NEXT XN",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX1500",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX2500",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX4500",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX5500",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX6500",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "APX8500",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "Broadband Over the Air Rekeying (BBOTAR)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "Command Central Digital Evidence Management System",
+      "serviceDescription": "",
+      "dateAvailable": "2026-01-06"
+    },
+    {
+      "serviceName": "CommandCentral Admin (CCAdmin)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "CommandCentral Aware (CCAware)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "Harmony Portal",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "Internet of Things (IoT) Cloud Services (IoTCS)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "RadioCentral Insights",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "RadioCentral with SmartProgramming (RCP)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "SRX 2200",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "SVX Device",
+      "serviceDescription": "",
+      "dateAvailable": "2026-01-06"
+    },
+    {
+      "serviceName": "SmartConnect",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "SmartLocate (Location Services)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "SmartMapping",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "SmartMessaging",
+      "serviceDescription": "",
+      "dateAvailable": "2026-01-06"
+    },
+    {
+      "serviceName": "SmartVideo",
+      "serviceDescription": "",
+      "dateAvailable": "2026-01-06"
+    },
+    {
+      "serviceName": "VX-P949",
+      "serviceDescription": "",
+      "dateAvailable": "2025-02-13"
+    },
+    {
+      "serviceName": "Assist",
+      "serviceDescription": "",
+      "dateAvailable": "2026-08-03"
+    }
+  ],
+  "ZD_frid_retro": "FR2118055930",
+  "id_matches_expected": true
+}

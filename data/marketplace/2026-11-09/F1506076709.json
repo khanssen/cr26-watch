@@ -1,0 +1,31 @@
+{
+  "$schema": "https://fedramp.gov/schemas/fedramp-certification-package-overview-schema-2026-06-24.json",
+  "serviceIdentification": {
+    "fedRampPackageId": "F1506076709",
+    "providerName": "Blackboard",
+    "serviceName": "Blackboard LMS",
+    "serviceAcronym": "Blackboard LMS",
+    "serviceDescription": "Blackboard's LMS solution offers government and military agencies next-generation online, social and mobile tools that create a continuous learning environment, built around peer-to-peer interaction, content and discussions.",
+    "certificationType": "Rev5",
+    "website": "https://www.blackboard.com/government",
+    "logo": "https://www.fedramp.gov/assets/img/logos/CSP_logos/BB%20Logo2.png"
+  },
+  "serviceProperties": {
+    "serviceType": [
+      "SaaS"
+    ],
+    "deploymentModel": "Government Community Cloud"
+  },
+  "contactInformation": [
+    {
+      "contactType": "Sales",
+      "contactEmail": "David.palmer@blackboard.com"
+    },
+    {
+      "contactType": "Security",
+      "contactEmail": "fedramp-security@blackboard.com"
+    }
+  ],
+  "ZD_frid_retro": "F1506076709",
+  "id_matches_expected": true
+}

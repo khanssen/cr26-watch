@@ -1,0 +1,154 @@
+{
+  "metadata": {
+    "version": "Marketplace Resubmit 10.16.2026",
+    "lastUpdated": "2026-10-16T00:00:00.000Z",
+    "updateSource": "DigiCert, Inc.",
+    "responsibleOfficial": {
+      "name": "Dean Vandelay",
+      "title": "Information System Management Point of Contact"
+    }
+  },
+  "serviceIdentification": {
+    "fedRampPackageId": "FR2635050845",
+    "providerName": "DigiCert, Inc.",
+    "serviceName": "DigiCert for Government",
+    "serviceAcronym": "DC-GOV",
+    "serviceDescription": "DigiCert for U.S. Government helps federal agencies reduce certificate-related outages gain control over the digital identities, certificates, cryptographic keys, and software their systems depend on. The unified SaaS platform gives teams a consistent way to manage these risks across their users, devices, workloads, and applications.\n\nThrough  DigiCert® ONE  on AWS GovCloud (US), the platform helps agencies discover and automate certificate lifecycles, operate private certificate authorities, protect software-signing processes and supply chains, and enforce consistent administrative access controls. These integrated capabilities help agencies reduce certificate-related outages, strengthen cyber resilience, improve auditability, and manage digital trust across cloud, hybrid, and on-premises environments.\n\nDigiCert for U.S. Government includes three integrated solutions:\n\n•\tDigiCert® Trust Lifecycle Manager:\nCA-agnostic certificate lifecycle management (CLM) solution providing centralized discovery, inventory, enrollment, and automated renewal of public and private certificates across users, devices, servers, and infrastructure, eliminating manual tracking and reducing certificate-related outages. It supports standard enrollment protocols (ACME, EST, SCEP, and CMP) and integrates natively with AWS services alongside CMDB platforms, endpoint management tools, identity providers, and third-party scanners.\n\n•\tDigiCert® Private CA:\nPrivate certificate authority solution enabling organizations to create, manage, and operate privately trusted root and intermediate CAs for issuing certificates to internal users, devices, servers, and workloads.\n\n•\tDigiCert® Software Trust Manager:\nA code signing and secure releases solution that provides centralized, policy-driven management of code signing keys and certificates, HSM-backed private key protection, CI/CD pipeline integrations, approval workflows, and comprehensive audit logging. DigiCert ONE environments supporting Software Trust Manager are covered by applicable independent security and compliance attestations, including SOC 2 Type II and WebTrust, depending on the deployment and region. DigiCert uses FIPS 140-2 and/or FIPS 140-3 compliant Hardware Security Modules (HSMs), as applicable, to protect cryptographic keys. Software Trust Manager helps organizations secure software signing and release processes, enforce signing policies, protect signing keys, and strengthen software release security.",
+    "certificationType": "20x",
+    "website": "https://www.digicert.com",
+    "logo": "https://www.digicert.com/content/dam/dcg/logos/digicert-logo-150x60.svg"
+  },
+  "serviceProperties": {
+    "serviceType": [
+      "SaaS"
+    ],
+    "deploymentModel": "Public Cloud",
+    "businessCategory": [
+      "Cybersecurity & Risk Management",
+      "Data Management",
+      "Development Tools",
+      "Governance, Risk, and Compliance (GRC)"
+    ],
+    "nextOngoingCertificationReportDate": "2027-06-10",
+    "trustCenter": {
+      "repositoryType": [
+        "Trust Center"
+      ],
+      "url": "https://trust.paramify.com/digicert",
+      "repositoryDescription": "DigiCert annual audit reports and certifications",
+      "authenticationRequired": true,
+      "accessRequestInstructions": "Click on Request Access Button, fill out the form and submit."
+    },
+    "secureConfigurationGuidance": {
+      "repositoryType": [
+        "Secure Configuration Guidance"
+      ],
+      "url": "https://docs.digicert.com/en/us-government/manage-your-fedramp-account/secure-configuration-guide.html",
+      "repositoryDescription": "Public-facing repository containing secure configuration and hardening guidance for DigiCert trust architecture.",
+      "authenticationRequired": true,
+      "accessRequestInstructions": "Click on Request Access Button, fill out the form and submit."
+    },
+    "additionalRepositories": []
+  },
+  "contactInformation": [
+    {
+      "contactType": "Authorizing Official",
+      "contactName": "Federal Risk and Authorization Management Program Program Management Office",
+      "contactEmail": "info@fedramp.gov"
+    },
+    {
+      "contactType": "System Point of Contact - Technical",
+      "contactName": "Jordan Wilcox"
+    },
+    {
+      "contactType": "Content Approver",
+      "contactName": "Dean Vandelay"
+    },
+    {
+      "contactType": "Information System Security Officer",
+      "contactName": "Security Team",
+      "contactEmail": "fedrampsecurityinbox@digicert.com"
+    },
+    {
+      "contactType": "Privacy Point of Contact",
+      "contactName": "Steve Black"
+    },
+    {
+      "contactType": "Authorizing Official Point of Contact"
+    },
+    {
+      "contactType": "Prepared By",
+      "contactName": "DigiCert, Inc.",
+      "contactPhone": "801-701-9600"
+    },
+    {
+      "contactType": "System Owner",
+      "contactName": "Eric Zimmerman"
+    },
+    {
+      "contactType": "System Point of Contact - Management",
+      "contactName": "Dean Vandelay"
+    },
+    {
+      "contactType": "Prepared For",
+      "contactName": "DigiCert, Inc.",
+      "contactPhone": "801-701-9600"
+    },
+    {
+      "contactType": "Sales",
+      "contactName": "Tiphany Zellers",
+      "contactEmail": "tiphany.zellers@digicert.com",
+      "contactPhone": "650-213-6398"
+    },
+    {
+      "contactType": "Security",
+      "contactName": "Security Team",
+      "contactEmail": "fedrampsecurityinbox@digicert.com"
+    }
+  ],
+  "assessor": {
+    "name": "Schellman Compliance, LLC",
+    "assessorID": "136571"
+  },
+  "certifiedServices": [
+    {
+      "serviceName": "Account Manager - SAAS",
+      "serviceDescription": "Centralized administrative control plane for managing DigiCert accounts, users, roles, API credentials, and organizational hierarchies across all DigiCert services."
+    },
+    {
+      "serviceName": "Private CA - SAAS",
+      "serviceDescription": "Managed cloud-hosted private certificate authority enabling agencies to establish their own internal CA hierarchy and issue internal certificates without on-premises CA infrastructure."
+    },
+    {
+      "serviceName": "Software Trust Manager",
+      "serviceDescription": "Code signing and software supply chain integrity service managing signing keys, certificates, and policies to ensure software authenticity and provenance for federal development teams."
+    },
+    {
+      "serviceName": "Trust Lifecycle Manager - SAAS",
+      "serviceDescription": "Cloud-based certificate lifecycle automation platform that manages TLS/SSL, client, device, and user certificates from issuance through renewal and revocation, with policy-driven automation and directory integrations."
+    }
+  ],
+  "thirdPartyInformationResources": {
+    "certified": [
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "F1603047866",
+        "useCase": "AWS GovCloud hosts DigiCert service’s compute, storage, and networking within the authorization boundary."
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR1807853629A",
+        "useCase": "CrowdStrike Falcon for Government Cloud is deployed on our servers, providing endpoint detection, response, and telemetry."
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2131856836",
+        "useCase": "Okta GHC: Identity, SSO, and MFA for DigiCert personnel who administer the boundary."
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2428769635XL",
+        "useCase": "compliance documentation and evidence collection for the 20x authorization package."
+      }
+    ],
+    "nonCertified": []
+  },
+  "ZD_frid_retro": "FR2635050845",
+  "id_matches_expected": true
+}

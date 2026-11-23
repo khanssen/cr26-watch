@@ -1,0 +1,149 @@
+{
+  "serviceIdentification": {
+    "fedRampPackageId": "F1305072116",
+    "providerName": "ServiceNow",
+    "serviceName": "Government Community Cloud",
+    "serviceAcronym": "Government Community Cloud",
+    "serviceDescription": "Government Community Cloud (GCC) is a ServiceNow cloud service offering that delivers the Now Platform in an environment that complies with stringent cloud security and privacy compliance requirements defined by the United States Federal Government. Government Community Cloud (GCC) is a multitenant environment restricted to the United States public sector and regulated private sector organizations with a government affiliation. This cloud service offering and the ServiceNow personnel who support it are physically located in the United States. Government Community Cloud (GCC) is hosted in geographically diverse mirrored data centers on infrastructure dedicated to Government Community Cloud (GCC).",
+    "certificationType": "Rev5",
+    "website": "https://www.servicenow.com",
+    "logo": "https://www.fedramp.gov/assets/img/logos/CSP_logos/ServiceNow%20Logo2.png"
+  },
+  "serviceProperties": {
+    "serviceType": [
+      "SaaS",
+      "PaaS"
+    ],
+    "deploymentModel": "Government Community Cloud",
+    "businessCategory": [
+      "Collaboration"
+    ]
+  },
+  "contactInformation": [
+    {
+      "contactType": "Security",
+      "contactEmail": "usfederalcompliance@servicenow.com"
+    },
+    {
+      "contactType": "Sales"
+    }
+  ],
+  "assessor": {
+    "name": "Kratos",
+    "assessorID": "137255"
+  },
+  "thirdPartyInformationResources": {
+    "certified": [
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2527132001",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2226322745",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2401047002",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2504148525",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2518163100",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "F1511207635",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2523656707",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2406760385",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2131766015",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2607452240",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR1710033970",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2128462521",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2528033654",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2218073444",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2229642430",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2335153827",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "F1303191948",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2100059668",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR1818240234",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2313477206",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "F1510137547",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2001938710A",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "F1603077867",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2110836406",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2505553757",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR2025456731",
+        "useCase": ""
+      },
+      {
+        "fedRampCertifiedThirdPartyInformationResource": "FR1825941347A",
+        "useCase": ""
+      }
+    ]
+  },
+  "ZD_frid_retro": "F1305072116",
+  "id_matches_expected": true
+}

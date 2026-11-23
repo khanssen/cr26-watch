@@ -1,0 +1,81 @@
+{
+  "serviceIdentification": {
+    "providerName": "Boomi, Inc.",
+    "serviceName": "Boomi Enterprise Platform",
+    "serviceAcronym": "Boomi Platform",
+    "serviceDescription": "A unified, enterprise-grade cloud integration and automation platform designed to break down data silos, streamline IT complexity, and accelerate digital transformation across hybrid environments.",
+    "certificationType": "Rev5",
+    "fedRampPackageId": "FR1916254386",
+    "website": "https://boomi.com",
+    "logo": "https://boomi.com/wp-content/uploads/2024/06/brand.svg"
+  },
+  "serviceProperties": {
+    "serviceType": [
+      "SaaS"
+    ],
+    "deploymentModel": "Hybrid Cloud",
+    "businessCategory": [
+      "Data Management",
+      "Artificial Intelligence (AI)",
+      "Governance, Risk, and Compliance (GRC)"
+    ],
+    "trustCenter": {
+      "repositoryType": [
+        "Trust Center"
+      ],
+      "url": "https://compliance.boomi.com",
+      "repositoryDescription": "Boomi Trust Center containing security, compliance, and regulatory documentation.",
+      "authenticationRequired": false
+    }
+  },
+  "contactInformation": [
+    {
+      "contactType": "Sales",
+      "contactEmail": "federal.sales@boomi.com"
+    },
+    {
+      "contactType": "Security",
+      "contactEmail": "federal-security@boomi.com"
+    }
+  ],
+  "certifiedServices": [
+    {
+      "serviceName": "Integration",
+      "serviceDescription": "Overcome IT complexity and break down data silos by integrating on-premises and cloud application, various data sources and devices with Boomi Integration. Create a fabric of connectivity to unlock productivity and thrive within your digital technology foundation. Boomi Integration accelerates time to value leveraging a drag and drop UI, data mapping tools, and a comprehensive library of connectors, coupled with support for various integration patterns enable you to build any integrations with exceptional speed."
+    },
+    {
+      "serviceName": "Master Data Hub (MDH)",
+      "serviceDescription": "Cloud-native master data management (MDM) solution that sits at the center of the various data silos within your organization - including your existing MDM solution, to provide you an easy to implement, scalable, flexible, and secure master data management hub as a service"
+    },
+    {
+      "serviceName": "API Management (APIM)",
+      "serviceDescription": "Full lifecycle API management in hybrid environments to configure, expose, test, deploy, monitor, and enforce contracts/policies with an API gateway."
+    },
+    {
+      "serviceName": "B2B/EDI Management",
+      "serviceDescription": "Supports integration with vendors and partners using XML, X12, EDIFACT, HL7, RosettaNet, Tradacoms, and custom EDI standards."
+    },
+    {
+      "serviceName": "Flow",
+      "serviceDescription": "Drag-and-drop workflow and application builder to automate manual processes and enable cross-functional collaboration at scale."
+    },
+    {
+      "serviceName": "Boomi Event Streams",
+      "serviceDescription": "Fully managed, cloud-native event streaming supporting Pub/Sub and queuing with guaranteed message delivery and ordering."
+    },
+    {
+      "serviceName": "Boomi Managed Cloud Services (MCS)",
+      "serviceDescription": "Private cloud isolation featuring three-tiered security (network, application, data) at rest and in transit. Boomi manages all aspects of MCS runtime instances, sparing MCS customers any work involved in configuring, monitoring, and managing hardware and software for Boomi processes."
+    },
+    {
+      "serviceName": "Boomi Agentstudio",
+      "serviceDescription": "A full agent lifecycle management solution natively embedded within the Boomi platform that empowers organizations to securely build, govern, and orchestrate all AI agents at scale. By connecting agents directly to trusted enterprise data and leveraging a patented decoupled runtime architecture, Agentstudio eliminates hallucinations while keeping your workloads safely within your own network to ensure strict data sovereignty. Within Agentstudio, the Agent Control Tower provides centralized governance, audit-ready activity logs, and built-in observability across both Boomi-created and third-party agents to transform isolated tools into secure, compliant, and scalable intelligent workflows."
+    },
+    {
+      "serviceName": "Boomi Platform Agents",
+      "serviceDescription": "A comprehensive suite of AI-powered developer accelerators embedded in the platform to help fast-track building integrations and automations. These agents have helped teams autonomously design integrations, enhance data privacy and monitoring, create process documentation in record time, and more. Included in the Boomi Enterprise Platform at no additional cost, Boomi Platform Agents are ready-to-use upon purchase and seamlessly work to accelerate your development."
+    }
+  ],
+  "ZD_frid_retro": "FR1916254386",
+  "id_matches_expected": true
+}

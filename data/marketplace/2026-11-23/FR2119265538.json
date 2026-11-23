@@ -1,0 +1,159 @@
+{
+  "serviceIdentification": {
+    "fedRampPackageId": "FR2119265538",
+    "providerName": "NEOGOV",
+    "serviceName": "NEOGOV Cloud",
+    "serviceAcronym": "NEOGOV Cloud",
+    "serviceDescription": "NEOGOV is a Software as a Service (SaaS) provider of cloud-based workforce management solutions, uniquely designed for the public sector, higher education, and public safety.\n\nNEOGOV offers Human Capital Management (HCM), Human Resource Information System (HRIS), and Talent Management Software (TMS) solutions that empower government agencies to seamlessly source, recruit, hire, onboard, develop, and retain a high quality workforce. Additionally, NEOGOV’s public safety workforce management platform provides a secure, all-in-one solution for public safety agencies to meet the compliance needs and complexities of their industry, allowing them to also recruit the best talent in the shortest time, train teams, and manage policies effortlessly.",
+    "certificationType": "Rev5",
+    "website": "https://www.neogov.com/",
+    "logo": "https://www.fedramp.gov/assets/img/logos/CSP_logos/NEOGOV%20Logo2.png",
+    "ueiNumber": "V8GKWCWPJAQ3"
+  },
+  "serviceProperties": {
+    "serviceType": [
+      "SaaS"
+    ],
+    "deploymentModel": "Public Cloud",
+    "businessCategory": [
+      "Education & Training",
+      "Health & Wellness",
+      "Human Resources",
+      "Law Enforcement",
+      "Legal & Policy"
+    ]
+  },
+  "contactInformation": [
+    {
+      "contactType": "Security",
+      "contactEmail": "fedramp@neogov.com"
+    },
+    {
+      "contactType": "Sales",
+      "contactEmail": "contact@neogov.com"
+    }
+  ],
+  "assessor": {
+    "name": "A-LIGN Compliance and Security, Inc. dba A-LIGN",
+    "assessorID": "138665"
+  },
+  "certifiedServices": [
+    {
+      "serviceName": "Action (Officer Action Reporting)",
+      "serviceDescription": "",
+      "dateAvailable": "2026-01-27"
+    },
+    {
+      "serviceName": "Attract (Candidate Relationship Management - CRM)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Benefits (Benefit Plan Administration)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "CoreHR (Employee Lifecycle Management)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Engage (Community Outreach)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "GovernmentJobs.com (Government Job Board)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "IA (Internal Affairs Case Management)",
+      "serviceDescription": "",
+      "dateAvailable": "2026-01-27"
+    },
+    {
+      "serviceName": "Insight (Applicant Tracking System)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Learn (Training Management)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Line (Public Safety Wellness App)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Onboard (Employee Onboarding)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Payroll (Pay & Tax Processing)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Perform (Performance Management)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Policy (Policy Management)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Ready (Field and New Role Training)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Recall (Policy Training)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Schedule (Personnel Scheduling)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "SchoolJobs.com (Education Job Board)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Standards (Accreditation Management)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Time & Attendance (Employee Time Tracking)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    },
+    {
+      "serviceName": "Vetted (Background Investigation)",
+      "serviceDescription": "",
+      "dateAvailable": "2026-01-27"
+    },
+    {
+      "serviceName": "Vitals (Early Intervention)",
+      "serviceDescription": "",
+      "dateAvailable": "2026-01-27"
+    },
+    {
+      "serviceName": "eForms (Employee Document Management)",
+      "serviceDescription": "",
+      "dateAvailable": "2025-08-25"
+    }
+  ],
+  "ZD_frid_retro": "FR2119265538",
+  "id_matches_expected": true
+}

@@ -1,0 +1,116 @@
+{
+  "packageMetadata": {
+    "responsibleOfficial": {
+      "name": "Faiz Surani",
+      "title": "Chief Technology Officer",
+      "email": "security@calderapbc.com"
+    },
+    "version": "1.0",
+    "lastUpdated": "2026-11-19T14:15:00-08:00",
+    "updateSource": "Faiz Surani, Chief Technology Officer, Caldera PBC"
+  },
+  "serviceIdentification": {
+    "fedRampPackageId": "FR2700137035",
+    "ueiNumber": "S1MQJW75T2X6",
+    "providerName": "Caldera AI Inc.",
+    "serviceName": "Mesa",
+    "serviceAcronym": "Mesa",
+    "serviceDescription": "Mesa is an AI platform for government agencies, used by federal, state, and local government staff. It has two workspaces: Research, for researching statutes, regulations, case law, and an agency’s own documents with cited answers, and Public Records, for handling public records requests from intake through review, redaction, and release. Mesa is a multi-tenant software-as-a-service application hosted on Google Cloud in the United States.",
+    "certificationType": "20x",
+    "website": "https://www.calderapbc.com/platform",
+    "logo": "https://www.calderapbc.com/mesa-wordmark.svg"
+  },
+  "serviceProperties": {
+    "serviceType": [
+      "SaaS"
+    ],
+    "deploymentModel": "Public Cloud",
+    "businessCategory": [
+      "Artificial Intelligence (AI)",
+      "Legal & Policy",
+      "Research"
+    ],
+    "trustCenter": {
+      "repositoryType": [
+        "Trust Center"
+      ],
+      "url": "https://trust.calderapbc.com",
+      "repositoryDescription": "Caldera’s trust center, hosted by Vanta. It holds our FedRAMP certification package documents, SOC 2 Type II report, security policies, subprocessor list, and the current status of our security controls.",
+      "authenticationRequired": true,
+      "accessRequestInstructions": "Request access at trust.calderapbc.com to view our FedRAMP certification package documents, SOC 2 Type II report, and supporting materials. FedRAMP and federal agency personnel are granted access without signing an NDA."
+    },
+    "additionalRepositories": [
+      {
+        "repositoryType": [
+          "Product Documentation"
+        ],
+        "url": "https://support.calderapbc.com",
+        "repositoryDescription": "Mesa’s public product documentation: a quickstart, guides to using Mesa, organization administration (settings, teams, connections, and the audit log), and release notes.",
+        "authenticationRequired": false
+      }
+    ],
+    "documentationOverview": "Caldera publishes product documentation for Mesa at support.calderapbc.com. Security documentation (our SOC 2 Type II report, security policies, and subprocessor list) is in our trust center at trust.calderapbc.com, and FedRAMP information is published at www.calderapbc.com/security/fedramp, with a machine-readable copy in JSON.",
+    "nextOngoingCertificationReportDate": "2027-03-08"
+  },
+  "contactInformation": [
+    {
+      "contactType": "Sales",
+      "contactName": "Caldera sales",
+      "contactEmail": "contact@calderapbc.com"
+    },
+    {
+      "contactType": "Security",
+      "contactName": "Caldera security team",
+      "contactEmail": "security@calderapbc.com"
+    }
+  ],
+  "certifiedServices": [
+    {
+      "serviceName": "Research",
+      "serviceDescription": "Research across statutes, codes, and regulations, case law, and documents an agency uploads, with answers that cite their sources. Includes drafting memos and reports from research results.",
+      "securityCategory": "Low"
+    },
+    {
+      "serviceName": "Public Records",
+      "serviceDescription": "Handling of public records requests: intake and scoping, collecting and reviewing responsive records, redaction of documents, email, audio, and video, and preparing the release with its response letter and withholding log.",
+      "securityCategory": "Low"
+    }
+  ],
+  "certificationProgress": {
+    "status": "Mesa is listed on the FedRAMP Marketplace in the Initial Implementation phase, and Caldera is pursuing FedRAMP 20x Class A certification for it.",
+    "certificationPath": "Program",
+    "certificationClass": "Class A",
+    "lastUpdated": "2026-11-19",
+    "milestones": [
+      {
+        "title": "SOC 2 Type II report issued",
+        "status": "completed",
+        "date": "2026-09-29",
+        "detail": "Unqualified opinion with no exceptions, covering April 28 to July 28, 2026."
+      },
+      {
+        "title": "FedRAMP Marketplace listing request submitted",
+        "status": "completed",
+        "date": "2026-09-30"
+      },
+      {
+        "title": "Listed on the FedRAMP Marketplace",
+        "status": "completed",
+        "date": "2026-10-02",
+        "detail": "Package approved for Initial Implementation, under FedRAMP ID FR2700137035."
+      },
+      {
+        "title": "FedRAMP 20x Class A gap assessment",
+        "status": "completed",
+        "date": "2026-10-05",
+        "detail": "Remaining requirements identified."
+      },
+      {
+        "title": "FedRAMP 20x Class A certification package submitted",
+        "status": "planned"
+      }
+    ]
+  },
+  "ZD_frid_retro": "FR2700137035",
+  "id_matches_expected": true
+}
